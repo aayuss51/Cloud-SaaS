@@ -12,9 +12,26 @@ export const Login: React.FC = () => {
   const { showToast } = useToast();
   const navigate = useNavigate();
   const location = useLocation(); 
+  const [loginType, setLoginType] = useState<'GUEST' | 'STAFF'>('GUEST');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const setDemoCredentials = (role: 'GUEST' | 'STAFF' | 'SUPER') => {
+    if (role === 'GUEST') {
+      setLoginType('GUEST');
+      setEmail('guest@mero-booking.com');
+      setPassword('guest123');
+    } else if (role === 'STAFF') {
+      setLoginType('STAFF');
+      setEmail('admin@mero-booking.com');
+      setPassword('admin123');
+    } else if (role === 'SUPER') {
+      setLoginType('STAFF');
+      setEmail('super@mero-booking.com');
+      setPassword('admin123');
+    }
+  };
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +51,7 @@ export const Login: React.FC = () => {
         setIsSubmitting(false);
         return;
       }
-      detectedRole = 'GUEST';
+      detectedRole = loginType === 'STAFF' ? 'HOTEL_ADMIN' : 'GUEST';
     }
 
     try {
@@ -44,7 +61,7 @@ export const Login: React.FC = () => {
       const state = location.state as { from?: { pathname: string, search?: string } } | null;
       const from = state?.from?.pathname 
         ? state.from.pathname + (state.from.search || '')
-        : (detectedRole === 'ADMIN' || detectedRole === 'SUPER_ADMIN' ? '/admin' : '/');
+        : (detectedRole === 'ADMIN' || detectedRole === 'SUPER_ADMIN' || detectedRole === 'HOTEL_ADMIN' ? '/admin' : '/');
       
       navigate(from, { replace: true });
     } catch (error) {
@@ -73,12 +90,78 @@ export const Login: React.FC = () => {
             <ArrowLeft size={18} />
           </Link>
 
-          <div className="text-center mb-10 mt-6">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-[22px] bg-emerald-600 text-white mb-6 shadow-xl shadow-emerald-500/20 border border-emerald-400/30">
-               <ShieldCheck size={32} />
+          <div className="text-center mb-6 mt-6">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-emerald-600 text-white mb-4 shadow-xl shadow-emerald-500/20">
+               <ShieldCheck size={28} />
             </div>
-            <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-none mb-3">Sign In</h1>
-            <p className="text-slate-500 font-medium text-sm">Unified Access Portal</p>
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight leading-none mb-2">
+              {loginType === 'GUEST' ? 'Guest Traveler Sign In' : 'Hotelier & Staff PMS Login'}
+            </h1>
+            <p className="text-slate-500 font-medium text-xs">
+              {loginType === 'GUEST' ? 'Manage your stays, view receipts & bookings' : 'Access Cloud Hotel PMS Operating System'}
+            </p>
+          </div>
+
+          {/* Portal Switcher Tabs */}
+          <div className="flex p-1 bg-slate-200/70 rounded-2xl mb-6">
+            <button
+              type="button"
+              onClick={() => {
+                setLoginType('GUEST');
+                setEmail('guest@mero-booking.com');
+                setPassword('guest123');
+              }}
+              className={`flex-1 py-2 text-xs font-black rounded-xl transition-all ${
+                loginType === 'GUEST'
+                  ? 'bg-white text-emerald-800 shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              🧳 Guest Portal
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setLoginType('STAFF');
+                setEmail('admin@mero-booking.com');
+                setPassword('admin123');
+              }}
+              className={`flex-1 py-2 text-xs font-black rounded-xl transition-all ${
+                loginType === 'STAFF'
+                  ? 'bg-emerald-700 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              🏨 Hotelier / Staff
+            </button>
+          </div>
+
+          {/* Quick Demo Fill Buttons */}
+          <div className="mb-6 bg-emerald-50/80 border border-emerald-100 p-2.5 rounded-xl text-center">
+            <p className="text-[10px] font-bold text-emerald-900 mb-1.5 uppercase tracking-wider">Quick Demo Logins</p>
+            <div className="flex flex-wrap items-center justify-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => setDemoCredentials('GUEST')}
+                className="px-2.5 py-1 bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold rounded-lg transition-colors"
+              >
+                Guest Traveler
+              </button>
+              <button
+                type="button"
+                onClick={() => setDemoCredentials('STAFF')}
+                className="px-2.5 py-1 bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold rounded-lg transition-colors"
+              >
+                Hotel Admin (GM)
+              </button>
+              <button
+                type="button"
+                onClick={() => setDemoCredentials('SUPER')}
+                className="px-2.5 py-1 bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold rounded-lg transition-colors"
+              >
+                SuperAdmin
+              </button>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">

@@ -47,7 +47,7 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         {/* Left: SaaS Brand & Property Switcher */}
         <div className="flex items-center gap-4">
-          <Link to="/" className="flex items-center gap-2.5 group">
+          <Link to="/admin" className="flex items-center gap-2.5 group">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-white shadow-md shadow-emerald-500/20 font-black text-sm tracking-wider">
               MB
             </div>
@@ -233,16 +233,15 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
             )}
           </div>
 
-          {/* Public Booking Engine Preview Button */}
-          {currentProperty && (
-            <Link
-              to={`/book?propertyId=${currentProperty.id}`}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold shadow-sm transition-all"
-            >
-              <span>Guest Engine</span>
-              <ExternalLink size={13} />
-            </Link>
-          )}
+          {/* Public Guest Stays Preview Button */}
+          <Link
+            to="/"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-xs font-semibold shadow-sm transition-all"
+            title="Switch to Guest Traveler Website"
+          >
+            <span>View Guest Website</span>
+            <ExternalLink size={13} className="text-emerald-400" />
+          </Link>
 
           {/* User Menu */}
           <div className="relative">
