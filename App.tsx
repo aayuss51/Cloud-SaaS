@@ -83,40 +83,72 @@ const LayoutWithChat: React.FC<{ children: React.ReactNode }> = ({ children }) =
   const { currentProperty } = useTenant();
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm backdrop-blur-md bg-white/95 print:hidden">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 bg-gradient-to-br from-emerald-500 via-teal-600 to-emerald-700 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 transform group-hover:scale-105 transition-transform duration-300">
-              <span className="font-sans font-black text-base tracking-tighter">HMS</span>
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-lg font-bold tracking-tight text-slate-900 font-sans">
-                  {currentProperty?.name || 'Mero-Booking'}
-                </span>
-                <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-1.5 py-0.2 rounded uppercase">
-                  SaaS OS
-                </span>
+    <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100 font-sans">
+      <nav className="bg-slate-950/90 border-b border-slate-800 sticky top-0 z-40 shadow-xl backdrop-blur-md print:hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <Link to="/" className="flex items-center gap-3 group">
+              <div className="relative w-10 h-10 bg-gradient-to-br from-emerald-400 via-teal-500 to-emerald-600 rounded-xl flex items-center justify-center text-slate-950 font-black shadow-lg shadow-emerald-500/20 transform group-hover:scale-105 transition-transform duration-300">
+                <span className="font-sans font-black text-sm tracking-tighter">HMS</span>
               </div>
-              <p className="text-[10px] text-slate-400 -mt-0.5">{currentProperty?.tagline || 'Cloud Hotel Platform'}</p>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-base font-black tracking-tight text-white font-sans">
+                    Mero-Booking
+                  </span>
+                  <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[9px] font-black px-1.5 py-0.2 rounded uppercase">
+                    🇳🇵 Nepal SaaS
+                  </span>
+                </div>
+                <p className="text-[10px] text-slate-400 -mt-0.5">Cloud Hotel PMS & Channel Manager</p>
+              </div>
+            </Link>
+
+            {/* Quick SaaS Nav Links */}
+            <div className="hidden lg:flex items-center gap-1 text-xs font-semibold text-slate-300 ml-4">
+              <Link to="/admin/tape-chart" className="px-3 py-1.5 rounded-lg hover:text-emerald-400 hover:bg-slate-900 transition-colors">
+                Tape Chart
+              </Link>
+              <Link to="/admin/channels" className="px-3 py-1.5 rounded-lg hover:text-emerald-400 hover:bg-slate-900 transition-colors">
+                OTA Channels
+              </Link>
+              <Link to="/admin/housekeeping" className="px-3 py-1.5 rounded-lg hover:text-emerald-400 hover:bg-slate-900 transition-colors">
+                Housekeeping
+              </Link>
+              <Link to="/admin/billing" className="px-3 py-1.5 rounded-lg hover:text-emerald-400 hover:bg-slate-900 transition-colors">
+                Pricing (NPR)
+              </Link>
             </div>
-          </Link>
-          <div className="flex items-center gap-4">
+          </div>
+
+          <div className="flex items-center gap-3">
             <PublicNav />
           </div>
         </div>
       </nav>
       <main className="flex-1">{children}</main>
-      <footer className="bg-slate-900 text-slate-400 border-t border-slate-800 py-8 mt-auto print:hidden text-xs">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-white font-bold">Cloud Hotel Management SaaS</span>
-            <span>• Multi-Tenant PMS, Tape Chart, OTA Channel Manager</span>
+      <footer className="bg-slate-950 text-slate-400 border-t border-slate-900 py-10 print:hidden text-xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+          <div className="space-y-1">
+            <div className="flex items-center justify-center md:justify-start gap-2">
+              <span className="text-white font-black text-sm">Mero-Booking Cloud HMS</span>
+              <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">
+                Nepal Edition
+              </span>
+            </div>
+            <p className="text-slate-500 text-xs">
+              Next-generation multi-tenant hotel operating system, visual tape chart, and eSewa / Khalti IRD invoicing.
+            </p>
           </div>
-          <p className="text-slate-500">
-            Powered by <span className="text-emerald-400 font-semibold">Nova PMS Cloud</span> &copy; 2026
-          </p>
+          <div className="flex items-center gap-6 text-xs text-slate-400">
+            <Link to="/admin" className="hover:text-emerald-400 transition-colors font-bold text-white">
+              Launch Live PMS Console →
+            </Link>
+            <span>•</span>
+            <p className="text-slate-500">
+              Made with ❤️ in Kathmandu & Pokhara, Nepal &copy; 2026
+            </p>
+          </div>
         </div>
       </footer>
     </div>
@@ -132,20 +164,18 @@ const PublicNav = () => {
 
     return (
       <div className="flex items-center gap-3">
-        {isStaff && (
-          <Link
-            to="/admin"
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all"
-          >
-            <Building2 size={13} />
-            <span>PMS Console</span>
-          </Link>
-        )}
+        <Link
+          to="/admin"
+          className="flex items-center gap-1.5 px-3.5 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl text-xs font-black shadow-lg shadow-emerald-500/20 transition-all"
+        >
+          <Building2 size={14} />
+          <span>Launch PMS Console</span>
+        </Link>
         <Link
           to="/profile"
-          className="flex items-center gap-2 text-xs font-semibold text-gray-700 hover:text-emerald-600 transition-colors"
+          className="flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-white transition-colors"
         >
-          <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 overflow-hidden border border-emerald-200">
+          <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-emerald-400 overflow-hidden border border-slate-700">
             {user.avatarUrl ? (
               <img src={user.avatarUrl} alt={user.name} className="w-full h-full object-cover" />
             ) : (
@@ -156,13 +186,13 @@ const PublicNav = () => {
         </Link>
         <Link
           to="/my-bookings"
-          className="text-xs font-medium text-slate-600 hover:text-emerald-600 transition-colors"
+          className="text-xs font-medium text-slate-400 hover:text-emerald-400 transition-colors"
         >
           My Stays
         </Link>
         <button
           onClick={logout}
-          className="text-xs font-medium text-gray-400 hover:text-rose-500 transition-colors"
+          className="text-xs font-medium text-slate-500 hover:text-rose-400 transition-colors"
         >
           Logout
         </button>
@@ -171,16 +201,19 @@ const PublicNav = () => {
   }
 
   return (
-    <div className="flex gap-2">
-      <Link to="/login">
-        <Button variant="outline" size="sm">
-          Staff / Guest Login
-        </Button>
+    <div className="flex items-center gap-2.5">
+      <Link
+        to="/admin"
+        className="flex items-center gap-1.5 px-3.5 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl text-xs font-black shadow-lg shadow-emerald-500/20 transition-all"
+      >
+        <Building2 size={14} />
+        <span>Live PMS Demo</span>
       </Link>
-      <Link to="/register">
-        <Button variant="liquid" size="sm" className="px-5">
-          Sign Up
-        </Button>
+      <Link
+        to="/login"
+        className="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-xs font-bold transition-all"
+      >
+        Staff / Guest Login
       </Link>
     </div>
   );
