@@ -76,8 +76,8 @@
 ### 🌐 9. Direct Guest Booking Engine & AI Concierge
 - **Cinematic Guest Portal:** High-definition hero carousel, room catalog, amenity filters, and availability calendar.
 - **Guest Folio & Booking Receipts:** Guests can view stay history, download official statements, and submit reviews.
-- **AI Guest Concierge:** Powered by Google Gemini SDK, delivering instant personalized answers about amenities, policies, and local recommendations.
 - **Multiple Payment Methods:** Support for Credit/Debit Cards, Cash on Arrival, and digital wallets (eSewa & Khalti).
+- *(Note: The legacy FAQ chatbot has been removed and queued for a dedicated ground-up rebuild).*
 
 ---
 

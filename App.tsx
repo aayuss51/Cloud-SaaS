@@ -24,7 +24,6 @@ import { Settings } from './pages/admin/Settings';
 import { MyBookings } from './pages/guest/MyBookings';
 import { Profile } from './pages/guest/Profile';
 import { ReviewPage } from './pages/guest/ReviewPage';
-import { ConciergeChat } from './components/ConciergeChat';
 import { UserRole } from './types';
 import { Crown, User as UserIcon, Building2, Sparkles } from 'lucide-react';
 import { Button } from './components/Button';
@@ -282,7 +281,6 @@ const App: React.FC = () => {
 
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
-            <ConciergeChat />
           </Router>
         </TenantProvider>
       </AuthProvider>
