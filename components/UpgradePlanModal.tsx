@@ -103,7 +103,7 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({ isOpen, onCl
           >
             <X size={20} />
           </button>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles size={13} />
             <span>Scale Your Hospitality Operations</span>
           </div>
@@ -119,7 +119,7 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({ isOpen, onCl
             <button
               onClick={() => setBillingCycle('MONTHLY')}
               className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                billingCycle === 'MONTHLY' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
+                billingCycle === 'MONTHLY' ? 'bg-blue-600 text-white shadow' : 'text-slate-400 hover:text-white'
               }`}
             >
               Monthly Billing
@@ -127,7 +127,7 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({ isOpen, onCl
             <button
               onClick={() => setBillingCycle('ANNUAL')}
               className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
-                billingCycle === 'ANNUAL' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
+                billingCycle === 'ANNUAL' ? 'bg-blue-600 text-white shadow' : 'text-slate-400 hover:text-white'
               }`}
             >
               <span>Annual Billing</span>
@@ -149,14 +149,14 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({ isOpen, onCl
                 key={t.id}
                 className={`relative rounded-xl p-5 border flex flex-col justify-between transition-all ${
                   t.popular
-                    ? 'border-emerald-500 bg-emerald-950/20 shadow-lg shadow-emerald-500/10 ring-1 ring-emerald-500/50'
+                    ? 'border-blue-500 bg-blue-950/20 shadow-lg shadow-blue-500/10 ring-1 ring-blue-500/50'
                     : isCurrent
                     ? 'border-slate-700 bg-slate-800/40 ring-1 ring-cyan-500/30'
                     : 'border-slate-800 bg-slate-800/20 hover:border-slate-700'
                 }`}
               >
                 {t.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-slate-950 text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full shadow">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-slate-950 text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full shadow">
                     Most Popular
                   </div>
                 )}
@@ -188,7 +188,7 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({ isOpen, onCl
                     </div>
                     {t.features.map((feat, i) => (
                       <div key={i} className="flex items-start gap-2 text-slate-300">
-                        <Check size={14} className="text-emerald-400 shrink-0 mt-0.5" />
+                        <Check size={14} className="text-blue-400 shrink-0 mt-0.5" />
                         <span>{feat}</span>
                       </div>
                     ))}
@@ -203,7 +203,7 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({ isOpen, onCl
                       isCurrent
                         ? 'bg-slate-800 text-slate-400 cursor-not-allowed border border-slate-700'
                         : t.popular
-                        ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md shadow-emerald-500/20'
+                        ? 'bg-blue-500 hover:bg-blue-400 text-slate-950 shadow-md shadow-blue-500/20'
                         : 'bg-slate-700 hover:bg-slate-600 text-white'
                     }`}
                   >
@@ -227,7 +227,7 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({ isOpen, onCl
         {/* Footer info */}
         <div className="p-4 bg-slate-950 border-t border-slate-800 text-center text-xs text-slate-400 flex items-center justify-center gap-6">
           <div className="flex items-center gap-1.5">
-            <ShieldCheck size={14} className="text-emerald-400" />
+            <ShieldCheck size={14} className="text-blue-400" />
             <span>Bank-grade 256-bit encryption</span>
           </div>
           <div className="flex items-center gap-1.5">

@@ -14,6 +14,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
+import { Logo } from './Logo';
 import { useTenant } from '../context/TenantContext';
 import { useAuth } from '../context/AuthContext';
 import { UserRole } from '../types';
@@ -48,19 +49,11 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         {/* Left: SaaS Brand & Property Switcher */}
         <div className="flex items-center gap-4">
-          <Link to="/admin" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-white shadow-md shadow-emerald-500/20 font-black text-sm tracking-wider">
-              MB
-            </div>
-            <div className="hidden sm:block leading-tight">
-              <div className="flex items-center gap-1.5">
-                <span className="font-bold text-base tracking-tight text-white font-sans">Mero-Booking</span>
-                <span className="bg-emerald-500/20 text-emerald-300 text-[10px] font-semibold px-1.5 py-0.5 rounded border border-emerald-500/30 uppercase tracking-widest">
-                  SaaS
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-400">Hospitality Cloud OS</p>
-            </div>
+          <Link to="/admin" className="flex items-center gap-2 group">
+            <Logo variant="compact" size="sm" theme="dark" showTagline={false} />
+            <span className="bg-blue-500/20 text-blue-300 text-[10px] font-semibold px-1.5 py-0.5 rounded border border-blue-500/30 uppercase tracking-widest hidden sm:inline-block">
+              PMS
+            </span>
           </Link>
 
           <div className="h-6 w-px bg-slate-800 hidden md:block" />
@@ -75,7 +68,7 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
               }}
               className="flex items-center gap-2.5 px-3 py-1.5 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 rounded-lg text-sm text-slate-200 transition-all group"
             >
-              <Building2 size={16} className="text-emerald-400 shrink-0" />
+              <Building2 size={16} className="text-blue-400 shrink-0" />
               <div className="text-left max-w-[140px] sm:max-w-[200px] truncate">
                 <div className="font-semibold text-xs text-white truncate">
                   {isAllPropertiesView ? '🌐 All Properties (Global)' : currentProperty?.name || 'Select Hotel'}
@@ -91,7 +84,7 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
               <div className="absolute left-0 mt-2 w-72 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 z-50 animate-fade-in-up">
                 <div className="px-2 py-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
                   <span>Tenant Properties</span>
-                  <span className="text-[10px] text-emerald-400">{properties.length} Active</span>
+                  <span className="text-[10px] text-blue-400">{properties.length} Active</span>
                 </div>
 
                 {user?.role === 'SUPER_ADMIN' && (
@@ -102,14 +95,14 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
                       navigate('/admin');
                     }}
                     className={`w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs mb-1 transition-colors ${
-                      isAllPropertiesView ? 'bg-emerald-600/20 text-emerald-300 font-bold border border-emerald-500/30' : 'text-slate-300 hover:bg-slate-800'
+                      isAllPropertiesView ? 'bg-blue-600/20 text-blue-300 font-bold border border-blue-500/30' : 'text-slate-300 hover:bg-slate-800'
                     }`}
                   >
                     <div className="flex items-center gap-2">
-                      <Layers size={14} className="text-emerald-400" />
+                      <Layers size={14} className="text-blue-400" />
                       <span>All Properties (Consolidated)</span>
                     </div>
-                    {isAllPropertiesView && <Check size={14} className="text-emerald-400" />}
+                    {isAllPropertiesView && <Check size={14} className="text-blue-400" />}
                   </button>
                 )}
 
@@ -124,12 +117,12 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
                           setIsPropDropdownOpen(false);
                         }}
                         className={`w-full text-left p-2 rounded-lg text-xs flex items-center justify-between transition-colors ${
-                          isSelected ? 'bg-emerald-600 text-white font-medium' : 'text-slate-300 hover:bg-slate-800'
+                          isSelected ? 'bg-blue-600 text-white font-medium' : 'text-slate-300 hover:bg-slate-800'
                         }`}
                       >
                         <div className="truncate pr-2">
                           <p className="font-semibold truncate">{prop.name}</p>
-                          <p className={`text-[10px] truncate ${isSelected ? 'text-emerald-100' : 'text-slate-400'}`}>
+                          <p className={`text-[10px] truncate ${isSelected ? 'text-blue-100' : 'text-slate-400'}`}>
                             {prop.city} • <span className="uppercase">{prop.tier}</span> Plan
                           </p>
                         </div>
@@ -145,7 +138,7 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
                       setIsPropDropdownOpen(false);
                       if (onOpenNewPropertyModal) onOpenNewPropertyModal();
                     }}
-                    className="w-full flex items-center justify-center gap-1.5 py-2 px-3 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 rounded-lg text-xs font-semibold border border-emerald-500/30 transition-all"
+                    className="w-full flex items-center justify-center gap-1.5 py-2 px-3 bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 rounded-lg text-xs font-semibold border border-blue-500/30 transition-all"
                   >
                     <Plus size={14} />
                     <span>Onboard New Property</span>
@@ -241,7 +234,7 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
             title="Switch to Guest Traveler Website"
           >
             <span>View Guest Website</span>
-            <ExternalLink size={13} className="text-emerald-400" />
+            <ExternalLink size={13} className="text-blue-400" />
           </Link>
 
           {/* Theme Quick Switcher for Admin Top Bar */}
@@ -257,7 +250,7 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
               }}
               className="flex items-center gap-2 p-1 pl-1.5 pr-2 bg-slate-800 hover:bg-slate-700/80 border border-slate-700 rounded-lg transition-all"
             >
-              <div className="w-7 h-7 rounded-md bg-emerald-700 text-white flex items-center justify-center font-bold text-xs overflow-hidden">
+              <div className="w-7 h-7 rounded-md bg-blue-600 text-white flex items-center justify-center font-bold text-xs overflow-hidden">
                 {user?.avatarUrl ? (
                   <img src={user.avatarUrl} alt={user.name} className="w-full h-full object-cover" />
                 ) : (
@@ -274,7 +267,7 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
                 <div className="px-3 py-2 border-b border-slate-800">
                   <p className="text-xs font-bold text-white truncate">{user?.name}</p>
                   <p className="text-[11px] text-slate-400 truncate">{user?.email}</p>
-                  <span className="inline-block mt-1 text-[10px] bg-slate-800 text-emerald-400 px-1.5 py-0.5 rounded font-mono">
+                  <span className="inline-block mt-1 text-[10px] bg-slate-800 text-blue-400 px-1.5 py-0.5 rounded font-mono">
                     {user?.role}
                   </span>
                 </div>
@@ -291,7 +284,7 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
                     onClick={() => setIsUserMenuOpen(false)}
                     className="flex items-center gap-2 px-3 py-2 hover:bg-slate-800 rounded-lg"
                   >
-                    <Sparkles size={14} className="text-emerald-400" />
+                    <Sparkles size={14} className="text-blue-400" />
                     <span>Theme & Display Settings</span>
                   </Link>
                   <Link

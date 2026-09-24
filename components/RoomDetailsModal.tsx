@@ -64,7 +64,7 @@ export const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
                {!isEditingImage ? (
                  <button 
                    onClick={() => setIsEditingImage(true)}
-                   className="p-3 bg-emerald-600/90 hover:bg-emerald-500 text-white rounded-2xl shadow-xl backdrop-blur-md border border-white/20 transition-all flex items-center gap-2 text-[10px] font-black uppercase tracking-widest"
+                   className="p-3 bg-blue-600/90 hover:bg-blue-500 text-white rounded-2xl shadow-xl backdrop-blur-md border border-white/20 transition-all flex items-center gap-2 text-[10px] font-black uppercase tracking-widest"
                  >
                    <Edit3 size={16} /> Update Visuals
                  </button>
@@ -84,7 +84,7 @@ export const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
                        <button 
                         onClick={handleUpdateImage}
                         disabled={isUpdating}
-                        className="flex-1 bg-white text-emerald-700 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg flex items-center justify-center gap-1"
+                        className="flex-1 bg-white text-blue-700 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg flex items-center justify-center gap-1"
                        >
                          {isUpdating ? <Loader2 className="animate-spin" size={14} /> : <><Save size={14} /> Save</>}
                        </button>
@@ -105,14 +105,14 @@ export const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
              <div className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.25em] opacity-60 mb-2">
                 <span>Ref: #{room.id}</span>
                 <span className="w-1 h-1 bg-white rounded-full"></span>
-                <span className="text-emerald-400">Luxury Suite</span>
+                <span className="text-blue-400">Luxury Suite</span>
              </div>
              <h2 className="text-4xl font-serif font-bold leading-tight">{room.name}</h2>
            </div>
 
            <div className="absolute bottom-8 right-8 bg-white/95 backdrop-blur-xl px-6 py-3 rounded-[24px] border border-white shadow-2xl ring-1 ring-black/5">
              <div className="flex flex-col items-end">
-                <span className="text-[9px] font-black text-emerald-600 uppercase tracking-widest mb-0.5">Starting From</span>
+                <span className="text-[9px] font-black text-blue-600 uppercase tracking-widest mb-0.5">Starting From</span>
                 <div className="flex items-baseline gap-1">
                    <span className="text-2xl font-black text-slate-900">NPR {room.pricePerNight.toLocaleString()}</span>
                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">/ night</span>
@@ -127,7 +127,7 @@ export const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
             {/* Highlights Grid */}
             <div className="grid grid-cols-3 gap-6">
                <div className="bg-gray-50/50 p-4 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center">
-                  <Users size={20} className="text-emerald-600 mb-2" />
+                  <Users size={20} className="text-blue-600 mb-2" />
                   <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Max Guests</span>
                   <span className="text-sm font-bold text-slate-900">{room.capacity} Persons</span>
                </div>
@@ -158,8 +158,8 @@ export const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
                 {room.facilityIds.map(fid => {
                   const f = facilities.find(fac => fac.id === fid);
                   return f ? (
-                    <div key={fid} className="flex items-center gap-3 text-gray-700 bg-white p-4 rounded-2xl border border-gray-100 hover:border-emerald-200 hover:bg-emerald-50/20 hover:shadow-sm transition-all group">
-                      <div className="w-8 h-8 rounded-xl bg-gray-50 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                    <div key={fid} className="flex items-center gap-3 text-gray-700 bg-white p-4 rounded-2xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/20 hover:shadow-sm transition-all group">
+                      <div className="w-8 h-8 rounded-xl bg-gray-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all">
                         <Check size={14} />
                       </div>
                       <span className="text-xs font-bold text-slate-700">{f.name}</span>
@@ -176,7 +176,7 @@ export const RoomDetailsModal: React.FC<RoomDetailsModalProps> = ({
           <Button variant="secondary" onClick={onClose} className="flex-1 rounded-2xl h-14 font-black uppercase tracking-widest text-[10px] border-gray-200">
             Return to List
           </Button>
-          <Button onClick={() => onBook(room)} variant="liquid" className="flex-1 rounded-2xl h-14 font-black uppercase tracking-widest text-[10px] shadow-2xl shadow-emerald-600/20">
+          <Button onClick={() => onBook(room)} variant="liquid" className="flex-1 rounded-2xl h-14 font-black uppercase tracking-widest text-[10px] shadow-2xl shadow-blue-600/20">
             Secure This Suite <ArrowRight size={18} className="ml-2" />
           </Button>
         </div>

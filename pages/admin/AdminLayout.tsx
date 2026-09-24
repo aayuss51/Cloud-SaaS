@@ -78,7 +78,7 @@ export const AdminLayout: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-slate-100 dark:bg-slate-950 flex flex-col font-sans text-slate-900 dark:text-slate-100 selection:bg-emerald-500 selection:text-white transition-colors duration-200">
+    <div className="min-h-screen bg-slate-100 dark:bg-slate-950 flex flex-col font-sans text-slate-900 dark:text-slate-100 selection:bg-blue-600 selection:text-white transition-colors duration-200">
       {/* Universal SaaS Top Bar */}
       <SaaSTopBar
         onOpenNewPropertyModal={() => setIsNewPropModalOpen(true)}
@@ -90,7 +90,7 @@ export const AdminLayout: React.FC = () => {
         <div className="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-3 flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
             <span className="font-bold text-slate-900 dark:text-white">{currentProperty?.name}</span>
-            <span className="bg-slate-100 dark:bg-slate-800 text-[10px] text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded uppercase">
+            <span className="bg-slate-100 dark:bg-slate-800 text-[10px] text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded uppercase font-semibold">
               {currentProperty?.tier}
             </span>
           </div>
@@ -117,7 +117,7 @@ export const AdminLayout: React.FC = () => {
                   <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">
                     Active Tenant
                   </span>
-                  <span className="text-[9px] bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 px-1.5 py-0.2 rounded font-mono font-semibold">
+                  <span className="text-[9px] bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-500/30 px-1.5 py-0.2 rounded font-mono font-semibold">
                     {currentProperty.tier}
                   </span>
                 </div>
@@ -134,9 +134,9 @@ export const AdminLayout: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/30 rounded-xl p-3 text-xs text-emerald-700 dark:text-emerald-300">
+              <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-500/30 rounded-xl p-3 text-xs text-blue-700 dark:text-blue-300">
                 <p className="font-bold">Global SaaS View</p>
-                <p className="text-[11px] text-emerald-600 dark:text-emerald-400/80 mt-0.5">All properties aggregated</p>
+                <p className="text-[11px] text-blue-600 dark:text-blue-400/80 mt-0.5">All properties aggregated</p>
               </div>
             )}
 
@@ -157,14 +157,14 @@ export const AdminLayout: React.FC = () => {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all group ${
                       isActive
-                        ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20 font-bold'
+                        ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20 font-bold'
                         : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
                       <item.icon
                         size={16}
-                        className={isActive ? 'text-white' : 'text-slate-400 dark:text-slate-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400'}
+                        className={isActive ? 'text-white' : 'text-slate-400 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400'}
                       />
                       <span>{item.label}</span>
                     </div>
@@ -172,7 +172,7 @@ export const AdminLayout: React.FC = () => {
                       <span
                         className={`text-[9px] px-1.5 py-0.2 rounded font-bold uppercase ${
                           isActive
-                            ? 'bg-emerald-800 text-emerald-100'
+                            ? 'bg-blue-800 text-blue-100'
                             : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700'
                         }`}
                       >
@@ -190,12 +190,12 @@ export const AdminLayout: React.FC = () => {
             <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-850 p-3 rounded-xl border border-slate-200 dark:border-slate-700/80 text-xs">
               <div className="flex items-center justify-between mb-1">
                 <span className="font-bold text-slate-900 dark:text-white text-[11px]">SaaS Cloud Status</span>
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
               </div>
               <p className="text-[11px] text-slate-500 dark:text-slate-400">99.98% SLA • 2-Way Sync Active</p>
               <button
                 onClick={() => setIsUpgradeModalOpen(true)}
-                className="mt-2 w-full py-1.5 bg-emerald-500/10 dark:bg-emerald-500/20 hover:bg-emerald-500/20 dark:hover:bg-emerald-500/30 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 dark:border-emerald-500/40 rounded-lg text-[11px] font-bold transition-all text-center"
+                className="mt-2 w-full py-1.5 bg-blue-500/10 dark:bg-blue-500/20 hover:bg-blue-500/20 dark:hover:bg-blue-500/30 text-blue-700 dark:text-blue-300 border border-blue-500/30 dark:border-blue-500/40 rounded-lg text-[11px] font-bold transition-all text-center"
               >
                 Manage Subscription
               </button>

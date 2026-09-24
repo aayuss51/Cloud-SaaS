@@ -47,7 +47,7 @@ export const Reviews: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex flex-col justify-center items-center h-96 gap-4">
-        <Loader2 className="animate-spin text-emerald-500" size={40} />
+        <Loader2 className="animate-spin text-blue-500" size={40} />
         <p className="text-slate-400 font-medium text-xs">Loading guest reviews...</p>
       </div>
     );
@@ -62,7 +62,7 @@ export const Reviews: React.FC = () => {
             <h1 className="text-xl sm:text-2xl font-black text-white font-sans">
               Guest Reputation & Feedback
             </h1>
-            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+            <span className="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
               {avgRating} ★ Rating
             </span>
           </div>
@@ -81,7 +81,7 @@ export const Reviews: React.FC = () => {
             placeholder="Search reviews..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full pl-8 pr-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-white text-xs placeholder:text-slate-500 focus:ring-1 focus:ring-emerald-500"
+            className="w-full pl-8 pr-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-white text-xs placeholder:text-slate-500 focus:ring-1 focus:ring-blue-500"
           />
         </div>
 

@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import { Button } from '../../components/Button';
 import { ImageWithSkeleton } from '../../components/ImageWithSkeleton';
+import { Logo } from '../../components/Logo';
 import { 
   Calendar, 
   Users, 
@@ -157,7 +158,7 @@ export const BookingSummary: React.FC = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4">
-        <Loader2 className="animate-spin text-emerald-600" size={48} />
+        <Loader2 className="animate-spin text-blue-600" size={48} />
         <p className="text-xs font-black uppercase tracking-[0.25em] text-gray-400 animate-pulse">Generating Secure Statement</p>
       </div>
     );
@@ -172,17 +173,16 @@ export const BookingSummary: React.FC = () => {
     const basePrice = room.pricePerNight * nights;
     const taxAmount = confirmedBooking.totalPrice - basePrice;
     
-    return (
+     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6 animate-fade-in print:bg-white print:p-0">
         <div className="bg-white rounded-[40px] shadow-2xl p-10 max-w-2xl w-full text-center border border-gray-100 relative overflow-hidden print:shadow-none print:border-none print:w-full print:max-w-none print:p-8">
-           <div className={`absolute top-0 left-0 w-full h-2 print:hidden ${isPending ? 'bg-amber-500' : 'bg-emerald-600'}`}></div>
+           <div className={`absolute top-0 left-0 w-full h-2 print:hidden ${isPending ? 'bg-amber-500' : 'bg-blue-600'}`}></div>
 
            <div className="flex justify-between items-center mb-10 print:mb-12">
               <div className="flex items-center gap-3">
-                 <div className="w-12 h-12 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-serif font-black shadow-lg">MB</div>
-                 <div className="text-left">
-                    <h2 className="text-xl font-bold tracking-tight text-slate-900 leading-none">Mero-Booking</h2>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mt-1">Official Statement</p>
+                 <Logo variant="compact" size="md" showTagline={false} />
+                 <div className="text-left hidden sm:block">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Official Statement</p>
                  </div>
               </div>
               <div className="text-right">
@@ -192,7 +192,7 @@ export const BookingSummary: React.FC = () => {
            </div>
 
            <h1 className="text-3xl font-bold text-slate-900 mb-2 font-serif">Guest Reservation Statement</h1>
-           <p className="text-gray-400 font-medium mb-12">Thank you for choosing Mero-Booking Luxury Residences.</p>
+           <p className="text-gray-400 font-medium mb-12">Thank you for choosing Mero Booking Stays & Residences.</p>
            
            <div className="grid grid-cols-2 gap-8 text-left mb-12 bg-gray-50/50 p-8 rounded-[32px] border border-gray-100 print:bg-white print:border-gray-200">
               <div className="col-span-2 border-b border-gray-200 pb-6 mb-2">
@@ -207,7 +207,7 @@ export const BookingSummary: React.FC = () => {
                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Status</p>
                  <div className="flex gap-2">
                     <span className="text-[10px] font-black uppercase bg-white px-2 py-0.5 rounded border border-gray-200 text-slate-600">{confirmedBooking.status}</span>
-                    <span className="text-[10px] font-black uppercase bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 text-emerald-600">{confirmedBooking.paymentStatus}</span>
+                    <span className="text-[10px] font-black uppercase bg-blue-50 px-2 py-0.5 rounded border border-blue-100 text-blue-600 font-bold">{confirmedBooking.paymentStatus}</span>
                  </div>
               </div>
               <div>
@@ -241,7 +241,7 @@ export const BookingSummary: React.FC = () => {
                  <span className="text-sm font-medium text-gray-500">Government Service Tax (13%)</span>
                  <span className="font-bold text-slate-900">NPR {taxAmount.toLocaleString()}</span>
               </div>
-              <div className="flex justify-between items-center py-6 bg-emerald-600 rounded-2xl px-6 text-white print:bg-white print:text-slate-900 print:border-2 print:border-slate-900">
+              <div className="flex justify-between items-center py-6 bg-blue-600 rounded-2xl px-6 text-white print:bg-white print:text-slate-900 print:border-2 print:border-slate-900">
                  <span className="text-xs font-black uppercase tracking-widest opacity-80">Final Settlement Total</span>
                  <span className="text-3xl font-black">NPR {confirmedBooking.totalPrice.toLocaleString()}</span>
               </div>
@@ -251,7 +251,7 @@ export const BookingSummary: React.FC = () => {
              <Button onClick={() => navigate(-1)} variant="outline" className="flex-1 h-14 rounded-2xl gap-2 font-bold">
                <ArrowLeft size={18} /> Back
              </Button>
-             <Button onClick={() => window.print()} className="flex-1 h-14 rounded-2xl gap-2 font-bold shadow-xl shadow-emerald-600/20">
+             <Button onClick={() => window.print()} className="flex-1 h-14 rounded-2xl gap-2 font-bold shadow-xl shadow-blue-600/20">
                <Printer size={18} /> Print Now
              </Button>
              <Button onClick={handleShare} variant="secondary" className="flex-1 h-14 rounded-2xl gap-2 font-bold border-gray-200">
@@ -362,7 +362,7 @@ export const BookingSummary: React.FC = () => {
                </div>
                <div className="flex justify-between">
                  <span className="text-slate-500">Merchant:</span>
-                 <span className="font-semibold text-slate-800">Mero Stays Nepal Ltd.</span>
+                 <span className="font-semibold text-slate-800">Mero Booking Nepal Ltd.</span>
                </div>
                <div className="flex justify-between pt-1 border-t border-purple-200/60">
                  <span className="font-bold text-slate-700">Total Settlement:</span>
@@ -415,7 +415,7 @@ export const BookingSummary: React.FC = () => {
                       <div className="flex justify-between"><span className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Suite</span><span className="font-bold text-slate-900">{room.name}</span></div>
                       <div className="flex justify-between"><span className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Guest</span><span className="font-bold text-slate-900">{guestDetails.name}</span></div>
                       <div className="flex justify-between"><span className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Gateway</span><span className="font-bold text-purple-900">Khalti Digital Wallet</span></div>
-                      <div className="flex justify-between pt-2 border-t border-gray-200"><span className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Total</span><span className="font-black text-emerald-600">NPR {totalCost.toLocaleString()}</span></div>
+                      <div className="flex justify-between pt-2 border-t border-gray-200"><span className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Total</span><span className="font-black text-blue-600">NPR {totalCost.toLocaleString()}</span></div>
                   </div>
                   <div className="flex gap-3 mt-2">
                       <Button variant="secondary" onClick={() => setShowConfirmModal(false)} className="flex-1 rounded-2xl h-14 font-bold">Cancel</Button>
@@ -438,14 +438,14 @@ export const BookingSummary: React.FC = () => {
                     </div>
                 </div>
                 <div className="p-10">
-                    <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-400 hover:text-emerald-600 transition-colors mb-10 text-[10px] font-black uppercase tracking-[0.2em]"><ArrowLeft size={16} /> Return to Inventory</button>
+                    <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-400 hover:text-blue-600 transition-colors mb-10 text-[10px] font-black uppercase tracking-[0.2em]"><ArrowLeft size={16} /> Return to Inventory</button>
                     <div className="grid grid-cols-2 gap-8 mb-12 bg-gray-50/50 p-8 rounded-[32px] border border-gray-100 shadow-inner">
                         <div className="flex items-center gap-4">
-                            <div className="p-4 bg-white rounded-2xl text-emerald-600 shadow-sm border border-emerald-50"><Calendar size={24} /></div>
+                            <div className="p-4 bg-white rounded-2xl text-blue-600 shadow-sm border border-blue-50"><Calendar size={24} /></div>
                             <div><p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-1">Period</p><p className="font-bold text-slate-900">{checkIn} — {checkOut}</p></div>
                         </div>
                         <div className="flex items-center gap-4">
-                            <div className="p-4 bg-white rounded-2xl text-emerald-600 shadow-sm border border-emerald-50"><Users size={24} /></div>
+                            <div className="p-4 bg-white rounded-2xl text-blue-600 shadow-sm border border-blue-50"><Users size={24} /></div>
                             <div><p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-1">Total Stay</p><p className="font-bold text-slate-900">{nights} Nights</p></div>
                         </div>
                     </div>
@@ -482,7 +482,7 @@ export const BookingSummary: React.FC = () => {
                                 </span>
                               </div>
                               <p className="text-xs text-purple-200 mt-0.5">
-                                Official & exclusive payment provider for Mero Stays reservations
+                                Official & exclusive payment provider for Mero Booking reservations
                               </p>
                             </div>
                           </div>
@@ -550,11 +550,11 @@ export const BookingSummary: React.FC = () => {
                         <div className="flex justify-between items-center px-4">
                             <span className="font-black text-slate-900 text-xl font-serif">Total Settlement</span>
                             <div className="text-right">
-                                <span className="font-black text-4xl text-emerald-600">NPR {totalCost.toLocaleString()}</span>
+                                <span className="font-black text-4xl text-blue-600">NPR {totalCost.toLocaleString()}</span>
                                 <p className="text-[9px] text-gray-400 font-black uppercase tracking-[0.2em] mt-2">Inclusive of all duties</p>
                             </div>
                         </div>
-                        <Button onClick={() => setShowConfirmModal(true)} disabled={isSubmitting} className="w-full h-20 rounded-[28px] text-xl font-black uppercase tracking-[0.2em] shadow-2xl shadow-emerald-600/30 active:scale-95">{isSubmitting ? <Loader2 className="animate-spin" size={32} /> : 'Complete Reservation'}</Button>
+                        <Button onClick={() => setShowConfirmModal(true)} disabled={isSubmitting} className="w-full h-20 rounded-[28px] text-xl font-black uppercase tracking-[0.2em] shadow-2xl shadow-blue-600/30 active:scale-95">{isSubmitting ? <Loader2 className="animate-spin" size={32} /> : 'Complete Reservation'}</Button>
                     </div>
                 </div>
             </div>
@@ -563,12 +563,12 @@ export const BookingSummary: React.FC = () => {
         <div className="w-full lg:w-[380px] space-y-8">
             <div className="bg-white rounded-[48px] p-10 shadow-sm border border-gray-100 flex flex-col ring-1 ring-black/5">
                 <div className="flex items-center justify-between mb-10">
-                    <div className="flex items-center gap-2 text-emerald-600"><ShieldCheck size={20} /><h3 className="font-black uppercase tracking-[0.2em] text-[10px]">Registry</h3></div>
-                    <button onClick={() => setShowDetailsEdit(!showDetailsEdit)} className="text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:underline">{showDetailsEdit ? 'Done' : 'Update'}</button>
+                    <div className="flex items-center gap-2 text-blue-600"><ShieldCheck size={20} /><h3 className="font-black uppercase tracking-[0.2em] text-[10px]">Registry</h3></div>
+                    <button onClick={() => setShowDetailsEdit(!showDetailsEdit)} className="text-[10px] font-black uppercase tracking-widest text-blue-600 hover:underline">{showDetailsEdit ? 'Done' : 'Update'}</button>
                 </div>
                 <div className="flex flex-col items-center gap-6 mb-12">
                     <div className="relative group">
-                        <div className="w-32 h-32 rounded-[40px] bg-emerald-50 border-4 border-white shadow-2xl flex items-center justify-center text-emerald-600 text-4xl font-black overflow-hidden relative">
+                        <div className="w-32 h-32 rounded-[40px] bg-blue-50 border-4 border-white shadow-2xl flex items-center justify-center text-blue-600 text-4xl font-black overflow-hidden relative">
                             {guestDetails.avatarUrl ? <img src={guestDetails.avatarUrl} alt="Guest" className="w-full h-full object-cover" /> : <span>{guestDetails.name.charAt(0)}</span>}
                             {showDetailsEdit && <div onClick={() => fileInputRef.current?.click()} className="absolute inset-0 bg-black/60 flex items-center justify-center cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity"><Camera size={32} className="text-white" /></div>}
                         </div>
@@ -578,13 +578,13 @@ export const BookingSummary: React.FC = () => {
                 </div>
                 {showDetailsEdit ? (
                     <div className="space-y-6 animate-fade-in-up">
-                        <div><label className="block text-[9px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Identity Name</label><div className="relative"><UserIcon className="absolute left-4 top-3.5 text-gray-300" size={16} /><input type="text" className="w-full pl-12 pr-4 py-3.5 text-sm font-bold bg-gray-50 border border-gray-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-emerald-500/10" value={guestDetails.name} onChange={e => setGuestDetails({...guestDetails, name: e.target.value})} /></div></div>
-                        <div><label className="block text-[9px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Mobile Access</label><div className="relative"><Phone className="absolute left-4 top-3.5 text-gray-300" size={16} /><input type="tel" className="w-full pl-12 pr-4 py-3.5 text-sm font-bold bg-gray-50 border border-gray-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-emerald-500/10" value={guestDetails.phone} onChange={e => setGuestDetails({...guestDetails, phone: e.target.value})} /></div></div>
+                        <div><label className="block text-[9px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Identity Name</label><div className="relative"><UserIcon className="absolute left-4 top-3.5 text-gray-300" size={16} /><input type="text" className="w-full pl-12 pr-4 py-3.5 text-sm font-bold bg-gray-50 border border-gray-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-blue-500/10" value={guestDetails.name} onChange={e => setGuestDetails({...guestDetails, name: e.target.value})} /></div></div>
+                        <div><label className="block text-[9px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Mobile Access</label><div className="relative"><Phone className="absolute left-4 top-3.5 text-gray-300" size={16} /><input type="tel" className="w-full pl-12 pr-4 py-3.5 text-sm font-bold bg-gray-50 border border-gray-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-blue-500/10" value={guestDetails.phone} onChange={e => setGuestDetails({...guestDetails, phone: e.target.value})} /></div></div>
                     </div>
                 ) : (
                     <div className="space-y-4 bg-gray-50 p-6 rounded-[28px] border border-gray-100">
                         <div className="flex items-center justify-between"><span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Mobile</span><span className="text-xs font-bold text-slate-900">{guestDetails.phone || 'Registry Pending'}</span></div>
-                        <div className="flex items-center justify-between"><span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Registry ID</span><span className="text-[9px] font-black text-emerald-600 bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-100 uppercase">Authenticated</span></div>
+                        <div className="flex items-center justify-between"><span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Registry ID</span><span className="text-[9px] font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-lg border border-blue-100 uppercase">Authenticated</span></div>
                     </div>
                 )}
             </div>

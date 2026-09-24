@@ -57,8 +57,8 @@ export const Housekeeping: React.FC = () => {
     {
       status: 'CLEAN',
       title: 'Clean (Ready for Inspection)',
-      badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
-      border: 'border-emerald-500/40',
+      badgeColor: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
+      border: 'border-blue-500/40',
     },
     {
       status: 'INSPECTED',
@@ -88,7 +88,7 @@ export const Housekeeping: React.FC = () => {
             <h1 className="text-xl sm:text-2xl font-black text-white font-sans">
               Housekeeping Dispatch Board
             </h1>
-            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+            <span className="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
               Kanban Dispatch
             </span>
           </div>
@@ -103,7 +103,7 @@ export const Housekeeping: React.FC = () => {
           <select
             value={selectedFloor}
             onChange={e => setSelectedFloor(e.target.value)}
-            className="bg-slate-800 border border-slate-700 text-white px-3 py-1.5 rounded-xl text-xs focus:ring-1 focus:ring-emerald-500"
+            className="bg-slate-800 border border-slate-700 text-white px-3 py-1.5 rounded-xl text-xs focus:ring-1 focus:ring-blue-500"
           >
             <option value="ALL">All Floors</option>
             <option value="1">Floor 1</option>
@@ -162,7 +162,7 @@ export const Housekeeping: React.FC = () => {
 
                       {rm.assignedStaff && (
                         <div className="flex items-center gap-1.5 text-[11px] text-slate-300 bg-slate-800/80 p-1.5 rounded-lg">
-                          <User size={12} className="text-emerald-400 shrink-0" />
+                          <User size={12} className="text-blue-400 shrink-0" />
                           <span className="truncate">{rm.assignedStaff}</span>
                         </div>
                       )}
@@ -186,7 +186,7 @@ export const Housekeeping: React.FC = () => {
                         {col.status === 'IN_PROGRESS' && (
                           <button
                             onClick={() => handleStatusShift(rm.roomNumber, 'CLEAN')}
-                            className="w-full py-1.5 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 rounded-lg font-bold text-center"
+                            className="w-full py-1.5 bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 rounded-lg font-bold text-center"
                           >
                             Mark Cleaned →
                           </button>
@@ -200,7 +200,7 @@ export const Housekeeping: React.FC = () => {
                           </button>
                         )}
                         {col.status === 'INSPECTED' && (
-                          <div className="w-full text-center text-emerald-400 font-semibold py-1">
+                          <div className="w-full text-center text-blue-400 font-semibold py-1">
                             Ready for Check-In ✓
                           </div>
                         )}

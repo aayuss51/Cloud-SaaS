@@ -94,13 +94,13 @@ export const Settings: React.FC = () => {
             Configure custom hotel branding, visual theme, tax rates, check-in hours, and webhook integrations.
           </p>
         </div>
-        <span className="bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+        <span className="bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
           {currentProperty.tier} Tier
         </span>
       </div>
 
       {savedFeedback && (
-        <div className="bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-500/40 text-emerald-800 dark:text-emerald-300 px-4 py-3 rounded-xl text-xs flex items-center gap-2 animate-fade-in-up">
+        <div className="bg-blue-100 dark:bg-blue-950/60 border border-blue-300 dark:border-blue-500/40 text-blue-800 dark:text-blue-300 px-4 py-3 rounded-xl text-xs flex items-center gap-2 animate-fade-in-up">
           <CheckCircle2 size={16} />
           <span>Tenant settings saved and deployed successfully!</span>
         </div>
@@ -111,18 +111,18 @@ export const Settings: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
           <div>
             <div className="flex items-center gap-2">
-              <Palette className="text-emerald-600 dark:text-emerald-400" size={18} />
+              <Palette className="text-blue-600 dark:text-blue-400" size={18} />
               <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white">
                 Interface Appearance & Theme
               </h2>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              Select how Mero-Booking is displayed across your devices and workstations.
+              Select how Mero Booking is displayed across your devices and workstations.
             </p>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Current active:</span>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800/60">
               {resolvedTheme === 'dark' ? 'Dark Mode' : 'Light Mode'}
             </span>
           </div>
@@ -135,7 +135,7 @@ export const Settings: React.FC = () => {
             onClick={() => setTheme('light')}
             className={`text-left p-4 rounded-xl border-2 transition-all relative flex flex-col justify-between ${
               theme === 'light'
-                ? 'border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/20 ring-2 ring-emerald-500/20'
+                ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/20 ring-2 ring-blue-500/20'
                 : 'border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
@@ -145,7 +145,7 @@ export const Settings: React.FC = () => {
                   <Sun size={20} />
                 </div>
                 {theme === 'light' && (
-                  <span className="flex items-center gap-1 text-[11px] font-bold text-emerald-700 dark:text-emerald-400 bg-white dark:bg-slate-800 px-2 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800">
+                  <span className="flex items-center gap-1 text-[11px] font-bold text-blue-700 dark:text-blue-400 bg-white dark:bg-slate-800 px-2 py-0.5 rounded-full border border-blue-300 dark:border-blue-800">
                     <CheckCircle2 size={12} /> Active
                   </span>
                 )}
@@ -162,7 +162,7 @@ export const Settings: React.FC = () => {
                 <div className="w-1/4 h-full bg-slate-100 rounded"></div>
                 <div className="flex-1 space-y-1">
                   <div className="w-3/4 h-2 bg-slate-200 rounded"></div>
-                  <div className="w-1/2 h-1.5 bg-emerald-400 rounded"></div>
+                  <div className="w-1/2 h-1.5 bg-blue-400 rounded"></div>
                 </div>
               </div>
             </div>
@@ -174,7 +174,7 @@ export const Settings: React.FC = () => {
             onClick={() => setTheme('dark')}
             className={`text-left p-4 rounded-xl border-2 transition-all relative flex flex-col justify-between ${
               theme === 'dark'
-                ? 'border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/20 ring-2 ring-emerald-500/20'
+                ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/20 ring-2 ring-blue-500/20'
                 : 'border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
@@ -184,7 +184,7 @@ export const Settings: React.FC = () => {
                   <Moon size={20} />
                 </div>
                 {theme === 'dark' && (
-                  <span className="flex items-center gap-1 text-[11px] font-bold text-emerald-700 dark:text-emerald-400 bg-white dark:bg-slate-800 px-2 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800">
+                  <span className="flex items-center gap-1 text-[11px] font-bold text-blue-700 dark:text-blue-400 bg-white dark:bg-slate-800 px-2 py-0.5 rounded-full border border-blue-300 dark:border-blue-800">
                     <CheckCircle2 size={12} /> Active
                   </span>
                 )}
@@ -201,7 +201,7 @@ export const Settings: React.FC = () => {
                 <div className="w-1/4 h-full bg-slate-850 rounded"></div>
                 <div className="flex-1 space-y-1">
                   <div className="w-3/4 h-2 bg-slate-700 rounded"></div>
-                  <div className="w-1/2 h-1.5 bg-emerald-500 rounded"></div>
+                  <div className="w-1/2 h-1.5 bg-blue-500 rounded"></div>
                 </div>
               </div>
             </div>
@@ -213,7 +213,7 @@ export const Settings: React.FC = () => {
             onClick={() => setTheme('system')}
             className={`text-left p-4 rounded-xl border-2 transition-all relative flex flex-col justify-between ${
               theme === 'system'
-                ? 'border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/20 ring-2 ring-emerald-500/20'
+                ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/20 ring-2 ring-blue-500/20'
                 : 'border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
@@ -223,7 +223,7 @@ export const Settings: React.FC = () => {
                   <Laptop size={20} />
                 </div>
                 {theme === 'system' && (
-                  <span className="flex items-center gap-1 text-[11px] font-bold text-emerald-700 dark:text-emerald-400 bg-white dark:bg-slate-800 px-2 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800">
+                  <span className="flex items-center gap-1 text-[11px] font-bold text-blue-700 dark:text-blue-400 bg-white dark:bg-slate-800 px-2 py-0.5 rounded-full border border-blue-300 dark:border-blue-800">
                     <CheckCircle2 size={12} /> Active
                   </span>
                 )}
@@ -239,11 +239,11 @@ export const Settings: React.FC = () => {
               <div className="w-full h-12 rounded-lg border border-slate-300 dark:border-slate-700 overflow-hidden flex shadow-xs">
                 <div className="w-1/2 h-full bg-white p-1.5 flex flex-col justify-center gap-1">
                   <div className="w-3/4 h-2 bg-slate-200 rounded"></div>
-                  <div className="w-1/2 h-1.5 bg-emerald-400 rounded"></div>
+                  <div className="w-1/2 h-1.5 bg-blue-400 rounded"></div>
                 </div>
                 <div className="w-1/2 h-full bg-slate-950 p-1.5 flex flex-col justify-center gap-1 border-l border-slate-300 dark:border-slate-700">
                   <div className="w-3/4 h-2 bg-slate-800 rounded"></div>
-                  <div className="w-1/2 h-1.5 bg-emerald-500 rounded"></div>
+                  <div className="w-1/2 h-1.5 bg-blue-500 rounded"></div>
                 </div>
               </div>
             </div>
@@ -384,7 +384,7 @@ export const Settings: React.FC = () => {
               </h3>
               <p className="text-slate-500 dark:text-slate-400 text-[11px]">Integrate hotel event streams with Zapier, Slack, or ERP systems</p>
             </div>
-            <span className="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-[10px] text-emerald-600 dark:text-emerald-400 font-mono">
+            <span className="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-[10px] text-blue-600 dark:text-blue-400 font-mono">
               v1.4 Live
             </span>
           </div>
@@ -412,7 +412,7 @@ export const Settings: React.FC = () => {
           <button
             type="submit"
             disabled={isSaving}
-            className="flex items-center gap-2 px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 transition-all"
+            className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 transition-all"
           >
             <Save size={14} />
             <span>{isSaving ? 'Saving Changes...' : 'Save Tenant Settings'}</span>

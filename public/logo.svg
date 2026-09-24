@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <defs>
+    <linearGradient id="mbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A"/>
+      <stop offset="45%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+    <linearGradient id="mbAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+    <filter id="mbGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#1D4ED8" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Base Rounded Container -->
+  <rect x="12" y="12" width="216" height="216" rx="52" fill="url(#mbGrad)" filter="url(#mbGlow)"/>
+  
+  <!-- Subtle Internal Highlight / Glass Stroke -->
+  <rect x="13" y="13" width="214" height="214" rx="51" stroke="white" stroke-opacity="0.22" stroke-width="2" fill="none"/>
+
+  <!-- Logo Icon: Modern 'M' & 'B' Booking Architecture with Bed & Mountain/Hotel Ridge -->
+  <g transform="translate(42, 46)">
+    <!-- Hotel / Mountain Arch Crown -->
+    <path d="M78 12 L112 44 L112 60 L78 30 L44 60 L44 44 Z" fill="url(#mbAccent)" opacity="0.95"/>
+    
+    <!-- Stylized 'M' Pillars -->
+    <path d="M22 134 V56 C22 48.27 28.27 42 36 42 H44 C51.73 42 58 48.27 58 56 V102 L74 86 C76.3 83.7 79.7 83.7 82 86 L98 102 V56 C98 48.27 104.27 42 112 42 H120 C127.73 42 134 48.27 134 56 V134 C134 140.6 128.6 146 122 146 H114 C107.4 146 102 140.6 102 134 V116 L78 92 L54 116 V134 C54 140.6 48.6 146 42 146 H34 C27.4 146 22 140.6 22 134 Z" fill="#FFFFFF"/>
+    
+    <!-- Horizon Line / Direct Booking Foundation -->
+    <rect x="18" y="138" width="120" height="8" rx="4" fill="url(#mbAccent)"/>
+    
+    <!-- Instant Booking Star / Check Pin -->
+    <circle cx="78" cy="20" r="7" fill="#F8FAFC"/>
+  </g>
+</svg>

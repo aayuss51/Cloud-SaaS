@@ -65,7 +65,7 @@ export const Tasks: React.FC = () => {
             <h1 className="text-xl sm:text-2xl font-black text-white font-sans">
               Operational Tasks & Work Orders
             </h1>
-            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+            <span className="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
               Live Dispatch
             </span>
           </div>
@@ -112,7 +112,7 @@ export const Tasks: React.FC = () => {
             </select>
             <button
               type="submit"
-              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold shrink-0"
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold shrink-0"
             >
               Add
             </button>
@@ -126,7 +126,7 @@ export const Tasks: React.FC = () => {
           <button
             onClick={() => setFilter('ALL')}
             className={`px-3 py-1 rounded-lg font-semibold transition-all ${
-              filter === 'ALL' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
+              filter === 'ALL' ? 'bg-blue-600 text-white shadow' : 'text-slate-400 hover:text-white'
             }`}
           >
             All ({tasks.length})
@@ -134,7 +134,7 @@ export const Tasks: React.FC = () => {
           <button
             onClick={() => setFilter('ACTIVE')}
             className={`px-3 py-1 rounded-lg font-semibold transition-all ${
-              filter === 'ACTIVE' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
+              filter === 'ACTIVE' ? 'bg-blue-600 text-white shadow' : 'text-slate-400 hover:text-white'
             }`}
           >
             Active ({tasks.filter(t => !t.isCompleted).length})
@@ -142,7 +142,7 @@ export const Tasks: React.FC = () => {
           <button
             onClick={() => setFilter('COMPLETED')}
             className={`px-3 py-1 rounded-lg font-semibold transition-all ${
-              filter === 'COMPLETED' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
+              filter === 'COMPLETED' ? 'bg-blue-600 text-white shadow' : 'text-slate-400 hover:text-white'
             }`}
           >
             Completed ({tasks.filter(t => t.isCompleted).length})
@@ -178,10 +178,10 @@ export const Tasks: React.FC = () => {
               <div className="flex items-center gap-3 flex-1">
                 <button
                   onClick={() => handleToggle(task.id)}
-                  className="text-slate-500 hover:text-emerald-400 transition-colors"
+                  className="text-slate-500 hover:text-blue-400 transition-colors"
                 >
                   {task.isCompleted ? (
-                    <CheckCircle2 size={18} className="text-emerald-400" />
+                    <CheckCircle2 size={18} className="text-blue-400" />
                   ) : (
                     <Circle size={18} />
                   )}

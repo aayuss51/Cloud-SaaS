@@ -118,7 +118,7 @@ export const TapeChart: React.FC = () => {
             <h1 className="text-xl sm:text-2xl font-black text-white font-sans">
               Tape Chart & Room Rack
             </h1>
-            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+            <span className="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
               14-Day Visual Grid
             </span>
           </div>
@@ -139,7 +139,7 @@ export const TapeChart: React.FC = () => {
             </button>
             <button
               onClick={jumpToToday}
-              className="px-3 py-1 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
+              className="px-3 py-1 text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors"
             >
               Today
             </button>
@@ -154,7 +154,7 @@ export const TapeChart: React.FC = () => {
 
           <button
             onClick={() => setQuickBookConfig({ isOpen: true })}
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 transition-all"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 transition-all"
           >
             <Plus size={14} />
             <span>New Booking</span>
@@ -167,7 +167,7 @@ export const TapeChart: React.FC = () => {
         <div className="flex items-center gap-4 flex-wrap">
           <span className="font-semibold text-slate-300">Reservation Status:</span>
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded bg-emerald-600 border border-emerald-400"></span>
+            <span className="w-3 h-3 rounded bg-blue-600 border border-blue-400"></span>
             <span className="text-slate-300">Checked In</span>
           </div>
           <div className="flex items-center gap-1.5">
@@ -183,7 +183,7 @@ export const TapeChart: React.FC = () => {
         <div className="flex items-center gap-3">
           <span className="font-semibold text-slate-300">Housekeeping:</span>
           <div className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span className="w-2 h-2 rounded-full bg-blue-400"></span>
             <span>Clean</span>
           </div>
           <div className="flex items-center gap-1">
@@ -215,13 +215,13 @@ export const TapeChart: React.FC = () => {
                   <th
                     key={col.dateStr}
                     className={`p-2.5 text-center min-w-[70px] border-r border-slate-800/60 ${
-                      col.isToday ? 'bg-emerald-950/40 text-emerald-300 font-black' : 'text-slate-400'
+                      col.isToday ? 'bg-blue-950/40 text-blue-300 font-black' : 'text-slate-400'
                     }`}
                   >
                     <div className="text-[10px] uppercase font-semibold">{col.dayName}</div>
                     <div
                       className={`text-sm mt-0.5 inline-block w-6 h-6 leading-6 rounded-full ${
-                        col.isToday ? 'bg-emerald-500 text-slate-950 font-bold' : 'text-white'
+                        col.isToday ? 'bg-blue-500 text-slate-950 font-bold' : 'text-white'
                       }`}
                     >
                       {col.dayNum}
@@ -251,7 +251,7 @@ export const TapeChart: React.FC = () => {
                           <span
                             className={`w-2 h-2 rounded-full shrink-0 ${
                               unit.housekeepingStatus === 'CLEAN'
-                                ? 'bg-emerald-400'
+                                ? 'bg-blue-400'
                                 : unit.housekeepingStatus === 'INSPECTED'
                                 ? 'bg-cyan-400'
                                 : unit.housekeepingStatus === 'DIRTY'
@@ -326,13 +326,13 @@ export const TapeChart: React.FC = () => {
                               date: col.dateStr,
                             })
                           }
-                          className={`p-1 border-r border-slate-800/40 hover:bg-emerald-950/20 cursor-pointer transition-colors group ${
-                            col.isToday ? 'bg-emerald-950/10' : ''
+                          className={`p-1 border-r border-slate-800/40 hover:bg-blue-950/20 cursor-pointer transition-colors group ${
+                            col.isToday ? 'bg-blue-950/10' : ''
                           }`}
                           title={`Available. Click to reserve Room ${unit.roomNumber} on ${col.dateStr}`}
                         >
                           <div className="h-9 w-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span className="text-[10px] bg-slate-800 text-emerald-400 font-bold px-1.5 py-0.5 rounded border border-slate-700">
+                            <span className="text-[10px] bg-slate-800 text-blue-400 font-bold px-1.5 py-0.5 rounded border border-slate-700">
                               + Book
                             </span>
                           </div>

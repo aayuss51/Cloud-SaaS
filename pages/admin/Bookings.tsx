@@ -78,7 +78,7 @@ export const Bookings: React.FC = () => {
             <h1 className="text-xl sm:text-2xl font-black text-white font-sans">
               Central Reservation System (CRS)
             </h1>
-            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+            <span className="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
               Omnichannel CRS
             </span>
           </div>
@@ -89,7 +89,7 @@ export const Bookings: React.FC = () => {
 
         <button
           onClick={() => setIsQuickBookOpen(true)}
-          className="flex items-center gap-1.5 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 transition-all"
+          className="flex items-center gap-1.5 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 transition-all"
         >
           <Plus size={15} />
           <span>New Reservation</span>
@@ -106,7 +106,7 @@ export const Bookings: React.FC = () => {
             placeholder="Search by guest name, email, or BK-..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
-            className="w-full bg-slate-850 border border-slate-700/80 rounded-xl pl-9 pr-3.5 py-2.5 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="w-full bg-slate-850 border border-slate-700/80 rounded-xl pl-9 pr-3.5 py-2.5 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
         </div>
 
@@ -116,7 +116,7 @@ export const Bookings: React.FC = () => {
           <select
             value={statusFilter}
             onChange={e => setStatusFilter(e.target.value)}
-            className="bg-slate-850 border border-slate-700/80 text-white px-3 py-2 rounded-xl text-xs focus:ring-1 focus:ring-emerald-500"
+            className="bg-slate-850 border border-slate-700/80 text-white px-3 py-2 rounded-xl text-xs focus:ring-1 focus:ring-blue-500"
           >
             <option value="ALL">All Statuses</option>
             <option value="CHECKED_IN">Checked In</option>
@@ -130,7 +130,7 @@ export const Bookings: React.FC = () => {
           <select
             value={channelFilter}
             onChange={e => setChannelFilter(e.target.value)}
-            className="bg-slate-850 border border-slate-700/80 text-white px-3 py-2 rounded-xl text-xs focus:ring-1 focus:ring-emerald-500"
+            className="bg-slate-850 border border-slate-700/80 text-white px-3 py-2 rounded-xl text-xs focus:ring-1 focus:ring-blue-500"
           >
             <option value="ALL">All Channels</option>
             <option value="DIRECT">Direct Desk</option>
@@ -177,7 +177,7 @@ export const Bookings: React.FC = () => {
                   >
                     <td
                       onClick={() => setSelectedBooking(b)}
-                      className="p-4 font-mono font-bold text-emerald-400"
+                      className="p-4 font-mono font-bold text-blue-400"
                     >
                       {b.id}
                     </td>
@@ -214,7 +214,7 @@ export const Bookings: React.FC = () => {
                       <div className="flex items-center gap-1.5 mt-0.5">
                         <span
                           className={`text-[10px] font-bold ${
-                            b.paymentStatus === 'PAID' ? 'text-emerald-400' : 'text-amber-400'
+                            b.paymentStatus === 'PAID' ? 'text-blue-400' : 'text-amber-400'
                           }`}
                         >
                           {b.paymentStatus}
@@ -229,7 +229,7 @@ export const Bookings: React.FC = () => {
                       <span
                         className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                           b.status === 'CHECKED_IN'
-                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                            ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
                             : b.status === 'CHECKED_OUT'
                             ? 'bg-slate-800 text-slate-400'
                             : b.status === 'CONFIRMED'
@@ -248,7 +248,7 @@ export const Bookings: React.FC = () => {
                             e.stopPropagation();
                             handleQuickStatus(b.id, 'CHECKED_IN');
                           }}
-                          className="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-bold text-[11px] shadow-sm transition-all"
+                          className="px-2.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold text-[11px] shadow-sm transition-all"
                           title="Quick Check-In"
                         >
                           Check In

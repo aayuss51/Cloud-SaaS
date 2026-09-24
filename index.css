@@ -29,11 +29,11 @@
   }
 
   ::selection {
-    @apply bg-emerald-500/20 text-emerald-900;
+    @apply bg-blue-600/20 text-blue-900;
   }
 
   html.dark ::selection {
-    @apply bg-emerald-500/30 text-emerald-300;
+    @apply bg-blue-500/30 text-blue-200;
   }
 }
 

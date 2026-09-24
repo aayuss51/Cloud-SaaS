@@ -62,7 +62,7 @@ export const Billing: React.FC = () => {
             <h1 className="text-xl sm:text-2xl font-black text-white font-sans">
               SaaS Subscription & Billing
             </h1>
-            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+            <span className="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
               Cloud Tenant
             </span>
           </div>
@@ -73,7 +73,7 @@ export const Billing: React.FC = () => {
 
         <button
           onClick={() => setIsUpgradeModalOpen(true)}
-          className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 transition-all"
+          className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 transition-all"
         >
           <Crown size={15} />
           <span>Change / Upgrade Plan</span>
@@ -89,7 +89,7 @@ export const Billing: React.FC = () => {
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 Active Plan
               </span>
-              <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-bold border border-emerald-500/30">
+              <span className="text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold border border-blue-500/30">
                 {currentProperty.subscriptionStatus}
               </span>
             </div>
@@ -105,19 +105,19 @@ export const Billing: React.FC = () => {
 
             <div className="mt-6 pt-4 border-t border-slate-800 space-y-2 text-xs text-slate-300">
               <div className="flex items-center gap-2">
-                <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
+                <CheckCircle2 size={14} className="text-blue-400 shrink-0" />
                 <span>2-Way OTA Channel Synchronization</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
+                <CheckCircle2 size={14} className="text-blue-400 shrink-0" />
                 <span>Interactive 14-Day Tape Chart</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
+                <CheckCircle2 size={14} className="text-blue-400 shrink-0" />
                 <span>Direct Guest Booking Engine</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
+                <CheckCircle2 size={14} className="text-blue-400 shrink-0" />
                 <span>Housekeeping Dispatch Kanban</span>
               </div>
             </div>
@@ -154,7 +154,7 @@ export const Billing: React.FC = () => {
               <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
                 <div
                   className={`h-2 rounded-full transition-all ${
-                    roomUsagePercent > 80 ? 'bg-amber-500' : 'bg-emerald-500'
+                    roomUsagePercent > 80 ? 'bg-amber-500' : 'bg-blue-500'
                   }`}
                   style={{ width: `${roomUsagePercent}%` }}
                 />
@@ -228,12 +228,12 @@ export const Billing: React.FC = () => {
             <tbody className="divide-y divide-slate-800/80 text-slate-300">
               {invoices.map(inv => (
                 <tr key={inv.id} className="hover:bg-slate-850/60 transition-colors">
-                  <td className="py-3.5 font-mono font-semibold text-emerald-400">{inv.invoiceNumber}</td>
+                  <td className="py-3.5 font-mono font-semibold text-blue-400">{inv.invoiceNumber}</td>
                   <td className="py-3.5 font-medium text-white">{inv.period}</td>
                   <td className="py-3.5 capitalize">{inv.planTier.toLowerCase()} ({inv.billingCycle.toLowerCase()})</td>
                   <td className="py-3.5 text-slate-400">{inv.date}</td>
                   <td className="py-3.5">
-                    <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+                    <span className="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
                       {inv.status}
                     </span>
                   </td>
@@ -243,7 +243,7 @@ export const Billing: React.FC = () => {
                   <td className="py-3.5 text-right">
                     <button
                       onClick={() => handlePrintInvoice(inv)}
-                      className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-semibold text-xs"
+                      className="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold text-xs"
                     >
                       <Download size={13} />
                       <span>Print PDF</span>

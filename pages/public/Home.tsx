@@ -184,13 +184,13 @@ export const Home: React.FC = () => {
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2 text-xs text-white/90 font-medium">
             <span className="flex items-center gap-1.5 bg-black/30 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-              <CheckCircle2 size={13} className="text-emerald-400" /> Best Rate Guarantee
+              <CheckCircle2 size={13} className="text-blue-400" /> Best Rate Guarantee
             </span>
             <span className="flex items-center gap-1.5 bg-black/30 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
               <CheckCircle2 size={13} className="text-purple-400" /> Instant Khalti Digital Payment
             </span>
             <span className="flex items-center gap-1.5 bg-black/30 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-              <CheckCircle2 size={13} className="text-emerald-400" /> Free Cancellation Options
+              <CheckCircle2 size={13} className="text-blue-400" /> Free Cancellation Options
             </span>
           </div>
         </div>
@@ -201,7 +201,7 @@ export const Home: React.FC = () => {
             {/* Destination Selector */}
             <div className="space-y-1 sm:border-r border-stone-100 pr-2">
               <label className="text-[11px] font-bold uppercase tracking-wider text-stone-600 flex items-center gap-1.5">
-                <MapPin size={13} className="text-emerald-700" />
+                <MapPin size={13} className="text-blue-600" />
                 <span>Destination / Hotel</span>
               </label>
               <select
@@ -221,7 +221,7 @@ export const Home: React.FC = () => {
             {/* Check-In */}
             <div className="space-y-1 sm:border-r border-stone-100 pr-2">
               <label className="text-[11px] font-bold uppercase tracking-wider text-stone-600 flex items-center gap-1.5">
-                <Calendar size={13} className="text-emerald-700" />
+                <Calendar size={13} className="text-blue-600" />
                 <span>Check-In Date</span>
               </label>
               <input
@@ -236,7 +236,7 @@ export const Home: React.FC = () => {
             {/* Check-Out */}
             <div className="space-y-1 sm:border-r border-stone-100 pr-2">
               <label className="text-[11px] font-bold uppercase tracking-wider text-stone-600 flex items-center gap-1.5">
-                <Calendar size={13} className="text-emerald-700" />
+                <Calendar size={13} className="text-blue-600" />
                 <span>Check-Out Date</span>
               </label>
               <input
@@ -252,7 +252,7 @@ export const Home: React.FC = () => {
             <div className="flex items-center gap-2">
               <div className="flex-1 space-y-1 pr-2">
                 <label className="text-[11px] font-bold uppercase tracking-wider text-stone-600 flex items-center gap-1.5">
-                  <Users size={13} className="text-emerald-700" />
+                  <Users size={13} className="text-blue-600" />
                   <span>Guests</span>
                 </label>
                 <select
@@ -269,7 +269,7 @@ export const Home: React.FC = () => {
 
               <a
                 href="#suites"
-                className="px-5 py-3 rounded-2xl bg-emerald-700 hover:bg-emerald-600 text-white font-black text-xs shadow-md shadow-emerald-700/25 transition-all flex items-center justify-center gap-1.5 shrink-0"
+                className="px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-black text-xs shadow-md shadow-blue-600/25 transition-all flex items-center justify-center gap-1.5 shrink-0"
               >
                 <Search size={14} />
                 <span>Find Suites</span>
@@ -283,7 +283,7 @@ export const Home: React.FC = () => {
       <section id="destinations" className="pt-8 max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-8">
           <div>
-            <span className="text-xs font-black tracking-widest text-emerald-800 uppercase bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+            <span className="text-xs font-black tracking-widest text-blue-800 uppercase bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
               Explore Nepal
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif font-black text-stone-900 mt-2">
@@ -317,13 +317,13 @@ export const Home: React.FC = () => {
                 <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300">
                   {dest.hotelsCount} Verified Stays
                 </span>
-                <h3 className="text-xl font-serif font-bold text-white group-hover:text-emerald-300 transition-colors">
+                <h3 className="text-xl font-serif font-bold text-white group-hover:text-blue-300 transition-colors">
                   {dest.name}
                 </h3>
                 <p className="text-xs text-stone-300 line-clamp-2 leading-relaxed">
                   {dest.subtitle}
                 </p>
-                <div className="pt-2 flex items-center gap-1 text-[11px] font-bold text-emerald-300">
+                <div className="pt-2 flex items-center gap-1 text-[11px] font-bold text-blue-300">
                   <span>Explore Rooms</span>
                   <ChevronRight size={13} className="group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -337,7 +337,7 @@ export const Home: React.FC = () => {
       <section id="suites" className="max-w-7xl mx-auto px-4 sm:px-6 scroll-mt-24">
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-8 border-b border-stone-200 pb-6">
           <div>
-            <span className="text-xs font-black tracking-widest text-emerald-800 uppercase bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+            <span className="text-xs font-black tracking-widest text-blue-800 uppercase bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
               Luxury Accommodations
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif font-black text-stone-900 mt-2">
@@ -355,7 +355,7 @@ export const Home: React.FC = () => {
                 onClick={() => setActiveCategoryFilter('ALL')}
                 className={`px-3 py-1.5 rounded-xl transition-all ${
                   activeCategoryFilter === 'ALL'
-                    ? 'bg-white text-emerald-800 shadow-sm'
+                    ? 'bg-white text-blue-800 shadow-sm'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
@@ -365,7 +365,7 @@ export const Home: React.FC = () => {
                 onClick={() => setActiveCategoryFilter('SUITE')}
                 className={`px-3 py-1.5 rounded-xl transition-all ${
                   activeCategoryFilter === 'SUITE'
-                    ? 'bg-white text-emerald-800 shadow-sm'
+                    ? 'bg-white text-blue-800 shadow-sm'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
@@ -375,7 +375,7 @@ export const Home: React.FC = () => {
                 onClick={() => setActiveCategoryFilter('DELUXE')}
                 className={`px-3 py-1.5 rounded-xl transition-all ${
                   activeCategoryFilter === 'DELUXE'
-                    ? 'bg-white text-emerald-800 shadow-sm'
+                    ? 'bg-white text-blue-800 shadow-sm'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
@@ -385,7 +385,7 @@ export const Home: React.FC = () => {
                 onClick={() => setActiveCategoryFilter('VILLA')}
                 className={`px-3 py-1.5 rounded-xl transition-all ${
                   activeCategoryFilter === 'VILLA'
-                    ? 'bg-white text-emerald-800 shadow-sm'
+                    ? 'bg-white text-blue-800 shadow-sm'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
@@ -444,7 +444,7 @@ export const Home: React.FC = () => {
                   />
                   {/* Property Tag */}
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-stone-800 border border-stone-200 flex items-center gap-1 shadow-sm">
-                    <MapPin size={11} className="text-emerald-700" />
+                    <MapPin size={11} className="text-blue-600" />
                     <span>{getPropertyCity(room.propertyId)} • {getPropertyName(room.propertyId)}</span>
                   </div>
 
@@ -458,7 +458,7 @@ export const Home: React.FC = () => {
                 <div className="p-6 flex-1 flex flex-col justify-between space-y-5">
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <h3 className="font-serif font-black text-xl text-stone-900 group-hover:text-emerald-800 transition-colors">
+                      <h3 className="font-serif font-black text-xl text-stone-900 group-hover:text-blue-600 transition-colors">
                         {room.name}
                       </h3>
                       <div className="flex items-center gap-1 text-amber-500 font-bold text-xs">
@@ -474,13 +474,13 @@ export const Home: React.FC = () => {
                     {/* Room Feature Highlights */}
                     <div className="pt-2 flex flex-wrap gap-2 text-[11px] text-stone-600">
                       <span className="flex items-center gap-1 bg-stone-50 border border-stone-200 px-2 py-0.5 rounded-lg">
-                        <Users size={12} className="text-emerald-700" /> {room.capacity} Guests
+                        <Users size={12} className="text-blue-600" /> {room.capacity} Guests
                       </span>
                       <span className="flex items-center gap-1 bg-stone-50 border border-stone-200 px-2 py-0.5 rounded-lg">
-                        <Wifi size={12} className="text-emerald-700" /> Free High-Speed Wi-Fi
+                        <Wifi size={12} className="text-blue-600" /> Free High-Speed Wi-Fi
                       </span>
                       <span className="flex items-center gap-1 bg-stone-50 border border-stone-200 px-2 py-0.5 rounded-lg">
-                        <Coffee size={12} className="text-emerald-700" /> Breakfast Included
+                        <Coffee size={12} className="text-blue-600" /> Breakfast Included
                       </span>
                     </div>
                   </div>
@@ -495,7 +495,7 @@ export const Home: React.FC = () => {
                         </span>
                         <span className="text-xs text-stone-400">/ night</span>
                       </div>
-                      <p className="text-[10px] text-emerald-700 font-medium">Includes IRD VAT & Service Charge</p>
+                      <p className="text-[10px] text-blue-600 font-medium">Includes IRD VAT & Service Charge</p>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -511,7 +511,7 @@ export const Home: React.FC = () => {
                       </button>
                       <button
                         onClick={() => handleBook(room)}
-                        className="px-4 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-black text-xs shadow-md shadow-emerald-700/20 transition-all flex items-center gap-1"
+                        className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-xs shadow-md shadow-blue-600/20 transition-all flex items-center gap-1"
                       >
                         <span>Reserve</span>
                         <ArrowRight size={13} />
@@ -530,7 +530,7 @@ export const Home: React.FC = () => {
         <div className="bg-stone-900 text-white rounded-3xl p-8 sm:p-14 overflow-hidden relative shadow-2xl">
           <div className="max-w-xl space-y-4 relative z-10">
             <span className="text-xs font-bold text-amber-300 uppercase tracking-widest bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">
-              The Mero Stays Experience
+              The Mero Booking Experience
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-black tracking-tight">
               Hospitality Rooted in Nepali Warmth
@@ -552,7 +552,7 @@ export const Home: React.FC = () => {
             </div>
 
             <div className="bg-stone-800/80 backdrop-blur-md p-5 rounded-2xl border border-stone-700 space-y-2.5">
-              <div className="w-10 h-10 rounded-xl bg-emerald-400/10 text-emerald-300 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-blue-400/10 text-blue-300 flex items-center justify-center font-bold">
                 <Flower2 size={20} />
               </div>
               <h3 className="font-serif font-bold text-base text-white">Ayurvedic Spa & Wellness</h3>
@@ -562,7 +562,7 @@ export const Home: React.FC = () => {
             </div>
 
             <div className="bg-stone-800/80 backdrop-blur-md p-5 rounded-2xl border border-stone-700 space-y-2.5">
-              <div className="w-10 h-10 rounded-xl bg-teal-400/10 text-teal-300 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-sky-400/10 text-sky-300 flex items-center justify-center font-bold">
                 <Car size={20} />
               </div>
               <h3 className="font-serif font-bold text-base text-white">Chauffeur & Transfers</h3>
@@ -572,7 +572,7 @@ export const Home: React.FC = () => {
             </div>
 
             <div className="bg-stone-800/80 backdrop-blur-md p-5 rounded-2xl border border-stone-700 space-y-2.5">
-              <div className="w-10 h-10 rounded-xl bg-sky-400/10 text-sky-300 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-indigo-400/10 text-indigo-300 flex items-center justify-center font-bold">
                 <Compass size={20} />
               </div>
               <h3 className="font-serif font-bold text-base text-white">Guided Expeditions</h3>
@@ -587,14 +587,14 @@ export const Home: React.FC = () => {
       {/* Guest Reviews & Social Proof */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
-          <span className="text-xs font-black tracking-widest text-emerald-800 uppercase bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+          <span className="text-xs font-black tracking-widest text-blue-800 uppercase bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
             Guest Testimonials
           </span>
           <h2 className="text-2xl sm:text-3xl font-serif font-black text-stone-900">
             Stories from Travelers in Nepal
           </h2>
           <p className="text-stone-500 text-xs sm:text-sm">
-            Over 14,000 satisfied guests have booked direct through Mero Stays.
+            Over 14,000 satisfied guests have booked direct through Mero Booking.
           </p>
         </div>
 
@@ -606,10 +606,10 @@ export const Home: React.FC = () => {
               ))}
             </div>
             <p className="text-xs text-stone-600 italic leading-relaxed">
-              "Waking up to the reflection of Machapuchare on Phewa Lake from our Presidential Suite at Grand Royal was sublime. Booking directly saved us money and got us complimentary airport transfers!"
+              "Waking up to the reflection of Machapuchare on Phewa Lake from our Presidential Suite was sublime. Booking directly through Mero Booking saved us money and got us complimentary airport transfers!"
             </p>
             <div className="pt-2 border-t border-stone-100 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-xs">
+              <div className="w-9 h-9 rounded-full bg-blue-100 text-blue-800 font-bold flex items-center justify-center text-xs">
                 AN
               </div>
               <div>
@@ -697,11 +697,11 @@ export const Home: React.FC = () => {
             >
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                className="w-full px-6 py-4 text-left flex items-center justify-between text-stone-900 font-bold text-xs sm:text-sm hover:text-emerald-700 transition-colors"
+                className="w-full px-6 py-4 text-left flex items-center justify-between text-stone-900 font-bold text-xs sm:text-sm hover:text-blue-600 transition-colors"
               >
                 <span>{faq.q}</span>
                 {openFaq === idx ? (
-                  <ChevronUp size={16} className="text-emerald-700 shrink-0" />
+                  <ChevronUp size={16} className="text-blue-600 shrink-0" />
                 ) : (
                   <ChevronDown size={16} className="text-stone-400 shrink-0" />
                 )}
@@ -718,22 +718,22 @@ export const Home: React.FC = () => {
 
       {/* Hotelier / Staff Transition Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="bg-gradient-to-r from-stone-900 via-stone-800 to-emerald-950 text-white rounded-3xl p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6 border border-stone-800 shadow-xl">
+        <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white rounded-3xl p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6 border border-slate-800 shadow-xl">
           <div className="space-y-2 text-center md:text-left">
-            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 bg-emerald-500/20 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
+            <span className="text-[10px] font-black uppercase tracking-widest text-blue-400 bg-blue-500/20 px-2.5 py-0.5 rounded-full border border-blue-500/30">
               For Hotel Owners & Staff
             </span>
             <h3 className="text-xl sm:text-2xl font-serif font-black text-white">
               Are you running a hotel or resort in Nepal?
             </h3>
-            <p className="text-xs text-stone-300 max-w-xl">
-              Experience the <strong>Mero-Booking Cloud PMS</strong>: 14-day tape chart, 2-way OTA channel synchronization (Booking.com, Airbnb), housekeeping dispatch, and IRD 13% VAT invoicing.
+            <p className="text-xs text-slate-300 max-w-xl">
+              Experience the <strong>Mero Booking Cloud PMS</strong>: 14-day tape chart, 2-way OTA channel synchronization (Booking.com, Airbnb), housekeeping dispatch, and IRD 13% VAT invoicing.
             </p>
           </div>
 
           <button
             onClick={() => navigate('/admin')}
-            className="px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg shadow-emerald-600/30 transition-all flex items-center gap-2 shrink-0 group"
+            className="px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2 shrink-0 group"
           >
             <Building2 size={16} />
             <span>Launch Staff PMS Console</span>

@@ -68,7 +68,7 @@ export const Facilities: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex flex-col justify-center items-center h-96 gap-4">
-        <Loader2 className="animate-spin text-emerald-600" size={48} />
+        <Loader2 className="animate-spin text-blue-600" size={48} />
         <p className="text-gray-500 font-medium animate-pulse">Loading facilities...</p>
       </div>
     );
@@ -80,7 +80,7 @@ export const Facilities: React.FC = () => {
         <div className="flex items-center gap-4">
           <button 
             onClick={() => navigate(-1)} 
-            className="p-2.5 bg-white border border-gray-100 rounded-xl hover:bg-gray-50 text-gray-400 hover:text-emerald-600 transition-all shadow-sm group"
+            className="p-2.5 bg-white border border-gray-100 rounded-xl hover:bg-gray-50 text-gray-400 hover:text-blue-600 transition-all shadow-sm group"
           >
             <ChevronLeft size={20} className="group-active:scale-90 transition-transform" />
           </button>
@@ -134,13 +134,13 @@ export const Facilities: React.FC = () => {
           return (
             <div key={f.id} className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center group hover:shadow-md transition-shadow">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
                   <IconComp size={22} />
                 </div>
                 <span className="font-medium text-gray-700">{f.name}</span>
               </div>
               <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button onClick={() => { setCurrentFacility(f); setIsEditing(true); }} className="text-gray-400 hover:text-emerald-600 transition-colors"><Edit2 size={18} /></button>
+                <button onClick={() => { setCurrentFacility(f); setIsEditing(true); }} className="text-gray-400 hover:text-blue-600 transition-colors"><Edit2 size={18} /></button>
                 <button onClick={() => handleDelete(f.id)} className="text-gray-400 hover:text-rose-600 transition-colors"><Trash2 size={18} /></button>
               </div>
             </div>

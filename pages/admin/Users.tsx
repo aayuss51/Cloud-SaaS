@@ -45,7 +45,7 @@ export const Users: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex flex-col justify-center items-center h-96 gap-4">
-        <Loader2 className="animate-spin text-emerald-500" size={40} />
+        <Loader2 className="animate-spin text-blue-500" size={40} />
         <p className="text-slate-400 font-medium text-xs">Loading SaaS directory...</p>
       </div>
     );
@@ -60,7 +60,7 @@ export const Users: React.FC = () => {
             <h1 className="text-xl sm:text-2xl font-black text-white font-sans">
               Staff & Access Governance
             </h1>
-            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+            <span className="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
               RBAC Directory
             </span>
           </div>
@@ -86,7 +86,7 @@ export const Users: React.FC = () => {
                 <tr key={u.id} className="hover:bg-slate-850/50 transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-slate-800 text-emerald-400 flex items-center justify-center font-bold text-xs overflow-hidden border border-slate-700">
+                      <div className="w-9 h-9 rounded-xl bg-slate-800 text-blue-400 flex items-center justify-center font-bold text-xs overflow-hidden border border-slate-700">
                         {u.avatarUrl ? (
                           <img src={u.avatarUrl} alt={u.name} className="w-full h-full object-cover" />
                         ) : (
@@ -112,7 +112,7 @@ export const Users: React.FC = () => {
 
                   <td className="px-6 py-4">
                     {currentUser?.id === u.id ? (
-                      <span className="bg-slate-800 px-3 py-1.5 rounded-lg text-emerald-400 font-bold border border-slate-700 inline-block text-[11px]">
+                      <span className="bg-slate-800 px-3 py-1.5 rounded-lg text-blue-400 font-bold border border-slate-700 inline-block text-[11px]">
                         {u.role.replace('_', ' ')} (You)
                       </span>
                     ) : (
@@ -120,7 +120,7 @@ export const Users: React.FC = () => {
                         disabled={processingId === u.id}
                         value={u.role}
                         onChange={e => handleRoleChange(u.id, e.target.value as UserRole)}
-                        className="bg-slate-850 border border-slate-700 text-white text-xs rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-emerald-500"
+                        className="bg-slate-850 border border-slate-700 text-white text-xs rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-blue-500"
                       >
                         <option value="SUPER_ADMIN">Platform SuperAdmin</option>
                         <option value="HOTEL_ADMIN">General Manager (Admin)</option>

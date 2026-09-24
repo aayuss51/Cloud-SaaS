@@ -28,7 +28,7 @@ export const Tenants: React.FC = () => {
             <h1 className="text-xl sm:text-2xl font-black text-white font-sans">
               Multi-Property SaaS Hub
             </h1>
-            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+            <span className="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
               Portfolio Management
             </span>
           </div>
@@ -39,7 +39,7 @@ export const Tenants: React.FC = () => {
 
         <button
           onClick={() => setIsNewPropModalOpen(true)}
-          className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 transition-all"
+          className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 transition-all"
         >
           <Plus size={15} />
           <span>Onboard New Property</span>
@@ -55,7 +55,7 @@ export const Tenants: React.FC = () => {
             <div
               key={prop.id}
               className={`bg-slate-900 border rounded-2xl overflow-hidden shadow-lg transition-all flex flex-col justify-between ${
-                isCurrent ? 'border-emerald-500 ring-1 ring-emerald-500/50' : 'border-slate-800 hover:border-slate-700'
+                isCurrent ? 'border-blue-500 ring-1 ring-blue-500/50' : 'border-slate-800 hover:border-slate-700'
               }`}
             >
               {/* Cover Image */}
@@ -73,7 +73,7 @@ export const Tenants: React.FC = () => {
                     {prop.tier} Plan
                   </span>
                   {isCurrent && (
-                    <span className="bg-emerald-500 text-slate-950 text-[10px] font-black uppercase px-2 py-0.5 rounded-full">
+                    <span className="bg-blue-500 text-slate-950 text-[10px] font-black uppercase px-2 py-0.5 rounded-full">
                       Active
                     </span>
                   )}
@@ -82,7 +82,7 @@ export const Tenants: React.FC = () => {
                 <div className="absolute bottom-3 left-3 right-3 text-white">
                   <h3 className="font-bold text-base text-white truncate">{prop.name}</h3>
                   <div className="flex items-center gap-1 text-[11px] text-slate-300 mt-0.5">
-                    <MapPin size={12} className="text-emerald-400" />
+                    <MapPin size={12} className="text-blue-400" />
                     <span>{prop.city}, {prop.country}</span>
                   </div>
                 </div>
@@ -121,8 +121,8 @@ export const Tenants: React.FC = () => {
                     onClick={() => switchProperty(prop.id)}
                     className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
                       isCurrent
-                        ? 'bg-slate-800 text-emerald-400 border border-slate-700'
-                        : 'bg-emerald-600 hover:bg-emerald-500 text-white'
+                        ? 'bg-slate-800 text-blue-400 border border-slate-700'
+                        : 'bg-blue-600 hover:bg-blue-500 text-white'
                     }`}
                   >
                     {isCurrent ? 'Active Property' : 'Switch & Manage →'}

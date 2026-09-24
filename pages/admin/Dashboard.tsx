@@ -114,7 +114,7 @@ export const Dashboard: React.FC = () => {
             <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight font-sans">
               {isAllPropertiesView ? 'Global Multi-Tenant Hub' : currentProperty?.name}
             </h1>
-            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+            <span className="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
               {currentProperty?.tier} Tier
             </span>
           </div>
@@ -130,12 +130,12 @@ export const Dashboard: React.FC = () => {
             to="/admin/tape-chart"
             className="flex items-center gap-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-semibold transition-all"
           >
-            <CalendarDays size={14} className="text-emerald-400" />
+            <CalendarDays size={14} className="text-blue-400" />
             <span>Open Tape Chart</span>
           </Link>
           <button
             onClick={() => setIsQuickBookOpen(true)}
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 transition-all"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 transition-all"
           >
             <CalendarCheck size={14} />
             <span>+ Quick Reservation</span>
@@ -145,9 +145,9 @@ export const Dashboard: React.FC = () => {
 
       {/* Super Admin Platform MRR Callout (if Super Admin role) */}
       {user?.role === 'SUPER_ADMIN' && platformStats && (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gradient-to-r from-emerald-950/40 via-slate-900 to-indigo-950/40 border border-emerald-500/30 rounded-2xl p-4 text-xs">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gradient-to-r from-emerald-950/40 via-slate-900 to-indigo-950/40 border border-blue-500/30 rounded-2xl p-4 text-xs">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400">
               Platform MRR (SaaS)
             </span>
             <p className="text-xl font-black text-white mt-0.5">
@@ -162,7 +162,7 @@ export const Dashboard: React.FC = () => {
             </span>
             <p className="text-xl font-black text-white mt-0.5">
               {platformStats.activeProperties}
-              <span className="text-[10px] text-emerald-400 font-normal"> / {platformStats.totalProperties}</span>
+              <span className="text-[10px] text-blue-400 font-normal"> / {platformStats.totalProperties}</span>
             </p>
             <p className="text-[10px] text-slate-400">Churn Rate: {platformStats.churnRate}%</p>
           </div>
@@ -178,7 +178,7 @@ export const Dashboard: React.FC = () => {
               SaaS Bookings Vol.
             </span>
             <p className="text-xl font-black text-white mt-0.5">{platformStats.totalBookingsProcessed}</p>
-            <p className="text-[10px] text-emerald-400">Platform Health: 99.98%</p>
+            <p className="text-[10px] text-blue-400">Platform Health: 99.98%</p>
           </div>
         </div>
       )}
@@ -189,7 +189,7 @@ export const Dashboard: React.FC = () => {
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-white hover:border-slate-700 transition-all">
           <div className="flex items-center justify-between text-slate-400 mb-2">
             <span className="text-xs font-semibold uppercase tracking-wider">Occupancy Rate</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
               <TrendingUp size={16} />
             </div>
           </div>
@@ -197,7 +197,7 @@ export const Dashboard: React.FC = () => {
             <span className="text-2xl sm:text-3xl font-black text-white">
               {stats?.occupancyRate || 72}%
             </span>
-            <span className="text-[11px] text-emerald-400 flex items-center font-semibold">
+            <span className="text-[11px] text-blue-400 flex items-center font-semibold">
               <ArrowUpRight size={13} />
               +5.4%
             </span>
@@ -208,7 +208,7 @@ export const Dashboard: React.FC = () => {
           {/* Progress bar */}
           <div className="w-full bg-slate-800 rounded-full h-1.5 mt-3 overflow-hidden">
             <div
-              className="bg-emerald-500 h-1.5 rounded-full"
+              className="bg-blue-500 h-1.5 rounded-full"
               style={{ width: `${stats?.occupancyRate || 72}%` }}
             />
           </div>
@@ -271,7 +271,7 @@ export const Dashboard: React.FC = () => {
           <div className="grid grid-cols-2 gap-2 mt-1">
             <div className="bg-slate-800/80 p-2 rounded-xl text-center">
               <p className="text-[10px] text-slate-400">Arrivals</p>
-              <p className="text-lg font-black text-emerald-400 mt-0.5">
+              <p className="text-lg font-black text-blue-400 mt-0.5">
                 {stats?.upcomingArrivalsToday || 2}
               </p>
             </div>
@@ -297,7 +297,7 @@ export const Dashboard: React.FC = () => {
               <h3 className="font-bold text-sm text-white">Weekly Revenue & Occupancy Trends</h3>
               <p className="text-xs text-slate-400">Dynamic rates & bookings performance</p>
             </div>
-            <span className="text-xs text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20 font-semibold">
+            <span className="text-xs text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-lg border border-blue-500/20 font-semibold">
               Live Real-Time Feed
             </span>
           </div>
@@ -396,7 +396,7 @@ export const Dashboard: React.FC = () => {
             </div>
             <Link
               to="/admin/housekeeping"
-              className="text-xs text-emerald-400 hover:underline flex items-center gap-1 font-semibold"
+              className="text-xs text-blue-400 hover:underline flex items-center gap-1 font-semibold"
             >
               Dispatch Board
               <ChevronRight size={13} />
@@ -420,7 +420,7 @@ export const Dashboard: React.FC = () => {
                 <span
                   className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                     hk.status === 'CLEAN'
-                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                      ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
                       : hk.status === 'INSPECTED'
                       ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
                       : hk.status === 'DIRTY'
@@ -444,7 +444,7 @@ export const Dashboard: React.FC = () => {
             </div>
             <Link
               to="/admin/bookings"
-              className="text-xs text-emerald-400 hover:underline flex items-center gap-1 font-semibold"
+              className="text-xs text-blue-400 hover:underline flex items-center gap-1 font-semibold"
             >
               View All CRS Bookings
               <ChevronRight size={13} />
@@ -470,7 +470,7 @@ export const Dashboard: React.FC = () => {
                     onClick={() => setSelectedBooking(b)}
                     className="hover:bg-slate-800/60 cursor-pointer transition-colors"
                   >
-                    <td className="py-3 font-mono font-semibold text-emerald-400">{b.id}</td>
+                    <td className="py-3 font-mono font-semibold text-blue-400">{b.id}</td>
                     <td className="py-3 font-medium text-white">{b.guestName}</td>
                     <td className="py-3 text-slate-400">
                       {b.checkIn} → {b.checkOut}
@@ -484,7 +484,7 @@ export const Dashboard: React.FC = () => {
                       <span
                         className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
                           b.status === 'CHECKED_IN'
-                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                            ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
                             : b.status === 'CONFIRMED'
                             ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
                             : 'bg-slate-800 text-slate-400'

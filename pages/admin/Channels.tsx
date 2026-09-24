@@ -67,7 +67,7 @@ export const Channels: React.FC = () => {
             <h1 className="text-xl sm:text-2xl font-black text-white font-sans">
               2-Way OTA Channel Manager
             </h1>
-            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+            <span className="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
               Global Distribution
             </span>
           </div>
@@ -79,7 +79,7 @@ export const Channels: React.FC = () => {
         <button
           onClick={handleSyncAll}
           disabled={isSyncingAll}
-          className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 transition-all"
+          className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 transition-all"
         >
           <RefreshCw size={14} className={isSyncingAll ? 'animate-spin' : ''} />
           <span>{isSyncingAll ? 'Synchronizing Feeds...' : 'Sync All Channels Now'}</span>
@@ -87,7 +87,7 @@ export const Channels: React.FC = () => {
       </div>
 
       {syncFeedback && (
-        <div className="bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 animate-fade-in-up">
+        <div className="bg-blue-950/60 border border-blue-500/40 text-blue-300 px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 animate-fade-in-up">
           <CheckCircle2 size={16} />
           <span>{syncFeedback}</span>
         </div>
@@ -103,14 +103,14 @@ export const Channels: React.FC = () => {
             {channels.filter(c => c.connected).length}
             <span className="text-xs text-slate-400 font-normal"> / {channels.length} Channels</span>
           </p>
-          <p className="text-[10px] text-emerald-400 mt-1">2-Way API Active</p>
+          <p className="text-[10px] text-blue-400 mt-1">2-Way API Active</p>
         </div>
 
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 text-white">
           <span className="text-slate-400 text-[11px] uppercase font-bold tracking-wider">
             Direct Share
           </span>
-          <p className="text-2xl font-black text-emerald-400 mt-1">54%</p>
+          <p className="text-2xl font-black text-blue-400 mt-1">54%</p>
           <p className="text-[10px] text-slate-400 mt-1">0% Commission Bookings</p>
         </div>
 
@@ -127,7 +127,7 @@ export const Channels: React.FC = () => {
             Rate Parity Status
           </span>
           <div className="flex items-center gap-1.5 mt-1">
-            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span className="w-2 h-2 rounded-full bg-blue-400"></span>
             <span className="text-base font-bold text-white">100% In Parity</span>
           </div>
           <p className="text-[10px] text-slate-400 mt-1">No rate violation alerts</p>
@@ -166,7 +166,7 @@ export const Channels: React.FC = () => {
                       onChange={() => handleToggle(ch.id)}
                       className="sr-only peer"
                     />
-                    <div className="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                    <div className="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                   </label>
                 </div>
 
@@ -181,7 +181,7 @@ export const Channels: React.FC = () => {
                   </div>
                   <div>
                     <span className="text-slate-400 text-[10px]">Active Units</span>
-                    <p className="font-bold text-emerald-400 mt-0.5">{ch.activeListings} Rooms</p>
+                    <p className="font-bold text-blue-400 mt-0.5">{ch.activeListings} Rooms</p>
                   </div>
                 </div>
               </div>
@@ -191,7 +191,7 @@ export const Channels: React.FC = () => {
                   <span
                     className={`w-2 h-2 rounded-full ${
                       ch.status === 'SYNCED'
-                        ? 'bg-emerald-400'
+                        ? 'bg-blue-400'
                         : ch.status === 'SYNCING'
                         ? 'bg-amber-400 animate-spin'
                         : 'bg-slate-500'
@@ -205,7 +205,7 @@ export const Channels: React.FC = () => {
                 {ch.connected && (
                   <button
                     onClick={() => handleSyncSingle(ch.id)}
-                    className="flex items-center gap-1 text-emerald-400 hover:text-emerald-300 text-xs font-semibold"
+                    className="flex items-center gap-1 text-blue-400 hover:text-blue-300 text-xs font-semibold"
                   >
                     <RefreshCw size={12} />
                     <span>Sync Now</span>

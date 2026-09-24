@@ -96,13 +96,13 @@ export const FolioModal: React.FC<FolioModalProps> = ({
         {/* Modal Top Bar */}
         <div className="bg-slate-900 text-white p-5 flex items-center justify-between border-b border-slate-800">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-400/30 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-400/30 flex items-center justify-center">
               <FileText size={20} />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-bold text-base text-white">Guest Folio & Billing</h3>
-                <span className="font-mono text-xs bg-slate-800 px-2 py-0.5 rounded text-emerald-300 font-semibold">
+                <span className="font-mono text-xs bg-slate-800 px-2 py-0.5 rounded text-blue-300 font-semibold">
                   {booking.id}
                 </span>
               </div>
@@ -136,7 +136,7 @@ export const FolioModal: React.FC<FolioModalProps> = ({
               <button
                 disabled={isProcessing}
                 onClick={() => handleStatusChange('CHECKED_IN')}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-bold shadow-sm transition-all"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold shadow-sm transition-all"
               >
                 <LogIn size={13} />
                 <span>Check-In Guest</span>
@@ -155,7 +155,7 @@ export const FolioModal: React.FC<FolioModalProps> = ({
             <span
               className={`px-2.5 py-1 rounded-full font-bold uppercase tracking-wider text-[10px] ${
                 booking.status === 'CHECKED_IN'
-                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                  ? 'bg-blue-100 text-blue-800 border border-blue-300'
                   : booking.status === 'CHECKED_OUT'
                   ? 'bg-slate-200 text-slate-700'
                   : booking.status === 'CONFIRMED'
@@ -234,15 +234,15 @@ export const FolioModal: React.FC<FolioModalProps> = ({
             {isAddingCharge && (
               <form
                 onSubmit={handleAddCharge}
-                className="bg-emerald-50/70 border border-emerald-200 p-3.5 rounded-xl mb-4 space-y-3 animate-fade-in-up"
+                className="bg-blue-50/70 border border-blue-200 p-3.5 rounded-xl mb-4 space-y-3 animate-fade-in-up"
               >
-                <div className="font-semibold text-xs text-emerald-950">Add Extra Service / Charge to Room Folio:</div>
+                <div className="font-semibold text-xs text-blue-950">Add Extra Service / Charge to Room Folio:</div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
                   <div className="sm:col-span-1">
                     <select
                       value={newChargeCategory}
                       onChange={e => setNewChargeCategory(e.target.value as FolioCharge['category'])}
-                      className="w-full px-2.5 py-2 rounded-lg border border-emerald-300 bg-white text-slate-900 text-xs focus:ring-1 focus:ring-emerald-500"
+                      className="w-full px-2.5 py-2 rounded-lg border border-blue-300 bg-white text-slate-900 text-xs focus:ring-1 focus:ring-blue-500"
                     >
                       <option value="DINING">Restaurant & Bar</option>
                       <option value="SPA">Spa & Wellness</option>
@@ -259,7 +259,7 @@ export const FolioModal: React.FC<FolioModalProps> = ({
                       placeholder="Description (e.g. Vintage Merlot)"
                       value={newChargeDesc}
                       onChange={e => setNewChargeDesc(e.target.value)}
-                      className="w-full px-2.5 py-2 rounded-lg border border-emerald-300 bg-white text-slate-900 text-xs focus:ring-1 focus:ring-emerald-500"
+                      className="w-full px-2.5 py-2 rounded-lg border border-blue-300 bg-white text-slate-900 text-xs focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
                   <div className="sm:col-span-1 flex gap-2">
@@ -270,12 +270,12 @@ export const FolioModal: React.FC<FolioModalProps> = ({
                       placeholder="Amount ($)"
                       value={newChargeAmount}
                       onChange={e => setNewChargeAmount(e.target.value)}
-                      className="w-full px-2.5 py-2 rounded-lg border border-emerald-300 bg-white text-slate-900 text-xs focus:ring-1 focus:ring-emerald-500"
+                      className="w-full px-2.5 py-2 rounded-lg border border-blue-300 bg-white text-slate-900 text-xs focus:ring-1 focus:ring-blue-500"
                     />
                     <button
                       type="submit"
                       disabled={isProcessing}
-                      className="px-3 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-bold text-xs shrink-0"
+                      className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold text-xs shrink-0"
                     >
                       Post
                     </button>

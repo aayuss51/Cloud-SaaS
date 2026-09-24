@@ -123,7 +123,7 @@ export const Rooms: React.FC = () => {
             <h1 className="text-xl sm:text-2xl font-black text-white font-sans">
               Rooms & Inventory Management
             </h1>
-            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
+            <span className="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[10px] font-bold px-2 py-0.5 rounded uppercase">
               {totalUnits} / {currentProperty?.roomLimit} Quota
             </span>
           </div>
@@ -134,7 +134,7 @@ export const Rooms: React.FC = () => {
 
         <button
           onClick={openCreateModal}
-          className="flex items-center gap-1.5 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 transition-all"
+          className="flex items-center gap-1.5 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 transition-all"
         >
           <Plus size={15} />
           <span>Add Room Type</span>
@@ -156,11 +156,11 @@ export const Rooms: React.FC = () => {
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
-              <div className="absolute top-3 right-3 bg-slate-900/90 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-black text-emerald-400 border border-slate-700">
+              <div className="absolute top-3 right-3 bg-slate-900/90 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-black text-blue-400 border border-slate-700">
                 ${room.pricePerNight} <span className="text-[10px] font-normal text-slate-400">/ night</span>
               </div>
               <div className="absolute bottom-3 left-3 text-white">
-                <span className="bg-slate-800/80 text-[10px] uppercase font-mono px-1.5 py-0.5 rounded text-emerald-300">
+                <span className="bg-slate-800/80 text-[10px] uppercase font-mono px-1.5 py-0.5 rounded text-blue-300">
                   {room.code}
                 </span>
                 <h3 className="font-bold text-base text-white mt-1">{room.name}</h3>
@@ -179,7 +179,7 @@ export const Rooms: React.FC = () => {
                   </div>
                   <div>
                     <span className="text-slate-400 text-[10px]">Total Stock</span>
-                    <p className="font-bold text-emerald-400 mt-0.5">{room.totalStock} Units</p>
+                    <p className="font-bold text-blue-400 mt-0.5">{room.totalStock} Units</p>
                   </div>
                 </div>
 
@@ -350,7 +350,7 @@ export const Rooms: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-bold"
+                  className="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold"
                 >
                   Save Room Type
                 </button>

@@ -1,6 +1,6 @@
 {
   "name": "Mero-Booking",
-  "description": "A comprehensive Hotel Management System featuring an Admin Dashboard for operations and a Guest Portal for reservations. Built with React, TypeScript, and Tailwind CSS (Simulating a Laravel-style application structure).",
+  "description": "Mero Booking: A comprehensive Nepal Hotel & Resort Reservation System featuring an Admin Dashboard PMS for hotel operations and a guest reservation portal. Powered by Khalti Digital Wallet.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }
