@@ -175,11 +175,11 @@ export const FolioModal: React.FC<FolioModalProps> = ({
               }
               className={`px-2.5 py-1 rounded-full font-bold uppercase text-[10px] transition-all ${
                 booking.paymentStatus === 'PAID'
-                  ? 'bg-green-100 text-green-800 border border-green-300 hover:bg-green-200'
+                  ? 'bg-purple-100 text-purple-900 border border-purple-300 hover:bg-purple-200'
                   : 'bg-rose-100 text-rose-800 border border-rose-300 hover:bg-rose-200'
               }`}
             >
-              {booking.paymentStatus} ({booking.paymentMethod})
+              {booking.paymentStatus} ({booking.paymentMethod || 'KHALTI'})
             </button>
           </div>
         </div>

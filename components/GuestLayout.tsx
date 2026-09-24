@@ -183,8 +183,8 @@ export const GuestLayout: React.FC<{ children: React.ReactNode }> = ({ children 
               </p>
               <div className="flex items-center gap-3 text-stone-400 pt-2">
                 <span className="flex items-center gap-1.5">
-                  <ShieldCheck size={14} className="text-emerald-400" />
-                  <span>Secure Payments (eSewa, Khalti, Cards)</span>
+                  <ShieldCheck size={14} className="text-purple-400" />
+                  <span>Exclusive Payment Partner: Khalti Digital Wallet</span>
                 </span>
               </div>
             </div>

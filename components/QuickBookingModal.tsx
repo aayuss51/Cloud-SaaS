@@ -38,7 +38,7 @@ export const QuickBookingModal: React.FC<QuickBookingModalProps> = ({
   );
   const [adults, setAdults] = useState(2);
   const [channel, setChannel] = useState<BookingChannel>('DIRECT');
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('CARD');
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('KHALTI');
   const [notes, setNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -238,19 +238,18 @@ export const QuickBookingModal: React.FC<QuickBookingModalProps> = ({
               </select>
             </div>
             <div>
-              <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1">
-                Payment Method
+              <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1 flex items-center justify-between">
+                <span>Payment Gateway</span>
+                <span className="text-[10px] text-purple-600 font-semibold lowercase">exclusive</span>
               </label>
               <select
                 value={paymentMethod}
                 onChange={e => setPaymentMethod(e.target.value as PaymentMethod)}
-                className="w-full px-2.5 py-2 rounded-lg border border-slate-300 text-slate-900 text-xs"
+                className="w-full px-2.5 py-2 rounded-lg border border-purple-300 bg-purple-50/50 text-purple-950 font-medium text-xs focus:ring-2 focus:ring-purple-500"
               >
-                <option value="CARD">Credit / Debit Card</option>
-                <option value="CASH">Cash on Arrival</option>
-                <option value="ESEWA">eSewa</option>
-                <option value="KHALTI">Khalti</option>
+                <option value="KHALTI">Khalti Digital Wallet (Active)</option>
               </select>
+              <p className="text-[10px] text-slate-500 mt-1">Direct Nepal NPR settlement via Khalti</p>
             </div>
             <div>
               <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1">

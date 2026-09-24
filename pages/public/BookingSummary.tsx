@@ -25,24 +25,18 @@ import {
   Phone,
   Camera,
   ChevronRight,
-  ChevronDown
+  ChevronDown,
+  Wallet,
+  Smartphone,
+  Lock,
+  Sparkles
 } from 'lucide-react';
 
-// Brand Logos
-const EsewaLogo = ({ className = "w-12 h-12" }: { className?: string }) => (
-  <div className={`relative flex items-center justify-center rounded-2xl bg-[#60bb46] text-white overflow-hidden shadow-lg ${className}`}>
-    <svg viewBox="0 0 100 100" className="w-8 h-8" fill="currentColor">
-      <path d="M47.8,70c-11.2,0-20.3-9.1-20.3-20.3s9.1-20.3,20.3-20.3c9.3,0,17.2,6.3,19.6,14.8l-8.3,1.9c-1.5-4.9-6-8.5-11.3-8.5
-        c-6.7,0-12.2,5.5-12.2,12.2s5.5,12.2,12.2,12.2c4.8,0,9-2.8,11-6.8H36.3v-6.7h31.6v6.7h8.4v8.1h-8.4c-2,7.3-8.5,12.5-16.3,12.5H47.8z" />
-      <rect x="78" y="44" width="12" height="5" rx="1" />
-    </svg>
-  </div>
-);
-
+// Khalti Brand Logo
 const KhaltiLogo = ({ className = "w-12 h-12" }: { className?: string }) => (
   <div className={`relative flex items-center justify-center rounded-2xl bg-[#5c2d91] text-white overflow-hidden shadow-lg ${className}`}>
-     <span className="font-black text-xl tracking-tighter">Kh</span>
-     <div className="absolute top-1 right-1 w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
+     <span className="font-black text-xl tracking-tighter font-sans">Khalti</span>
+     <div className="absolute top-1.5 right-1.5 w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
   </div>
 );
 
@@ -66,9 +60,12 @@ export const BookingSummary: React.FC = () => {
   const [confirmedBooking, setConfirmedBooking] = useState<Booking | null>(null);
   const [isCopied, setIsCopied] = useState(false);
   
-  // Payment State
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('CASH');
+  // Payment State - Khalti Exclusive
+  const paymentMethod: PaymentMethod = 'KHALTI';
+  const [khaltiMobile, setKhaltiMobile] = useState(user?.phone || '9801234567');
+  const [khaltiPin, setKhaltiPin] = useState('1234');
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [paymentStep, setPaymentStep] = useState<'CONNECTING' | 'AUTHORIZING' | 'SUCCESS'>('CONNECTING');
 
   // Guest Details Edit State
   const [showDetailsEdit, setShowDetailsEdit] = useState(false);
@@ -227,7 +224,11 @@ export const BookingSummary: React.FC = () => {
               </div>
               <div>
                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Payment Method</p>
-                 <p className="font-bold text-slate-800 uppercase">{confirmedBooking.paymentMethod}</p>
+                 <p className="font-bold text-purple-900 uppercase flex items-center gap-1.5">
+                   <span className="w-2 h-2 rounded-full bg-[#5c2d91] inline-block"></span>
+                   Khalti Digital Wallet
+                 </p>
+                 <p className="text-[10px] font-mono text-purple-700 mt-0.5 font-semibold">Txn: KHLT-{confirmedBooking.id.replace(/[^0-9]/g, '') || '78901'}-NP</p>
               </div>
            </div>
 
@@ -294,25 +295,43 @@ export const BookingSummary: React.FC = () => {
   const totalCost = Math.floor(nights * room.pricePerNight * 1.13);
 
   const processBooking = async () => {
-    if (!user) return;
+    if (!user || !room || !checkIn || !checkOut) return;
     setIsSubmitting(true);
-    if (paymentMethod !== 'CASH') {
-        setIsProcessingPayment(true);
-        await new Promise(r => setTimeout(r, 2500));
-        setIsProcessingPayment(false);
-    }
+    setIsProcessingPayment(true);
+    setPaymentStep('CONNECTING');
+    await new Promise(r => setTimeout(r, 800));
+    setPaymentStep('AUTHORIZING');
+    await new Promise(r => setTimeout(r, 1100));
+    setPaymentStep('SUCCESS');
+    await new Promise(r => setTimeout(r, 600));
+    setIsProcessingPayment(false);
+
     try {
-      const isPaid = paymentMethod !== 'CASH';
       const newBooking = await createBooking({
-        roomId: room.id, userId: user.id, guestName: guestDetails.name,
-        checkIn, checkOut, totalPrice: totalCost, paymentMethod,
-        paymentStatus: isPaid ? 'PAID' : 'PENDING',
-        status: isPaid ? 'CONFIRMED' : 'PENDING'
+        propertyId: room.propertyId || 'prop_grand_royal',
+        roomId: room.id,
+        roomTypeName: room.name,
+        userId: user.id,
+        guestName: guestDetails.name,
+        guestEmail: user.email,
+        guestPhone: guestDetails.phone || khaltiMobile,
+        checkIn,
+        checkOut,
+        nights,
+        adults: 2,
+        children: 0,
+        channel: 'DIRECT',
+        totalPrice: totalCost,
+        paymentMethod: 'KHALTI',
+        paymentStatus: 'PAID',
+        status: 'CONFIRMED',
+        notes: `Settled via Khalti Digital Wallet (${khaltiMobile})`
       });
       setConfirmedBooking(newBooking);
-      showToast('success', 'Reservation confirmed.');
+      showToast('success', 'Reservation confirmed & settled via Khalti.');
     } catch (e) {
       showToast('error', 'Booking failed.');
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -320,15 +339,64 @@ export const BookingSummary: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-4 animate-fade-in relative">
       {isProcessingPayment && (
-        <div className="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center animate-fade-in">
-           <div className={`p-12 rounded-[48px] flex flex-col items-center max-w-sm w-full text-center ${paymentMethod === 'ESEWA' ? 'bg-emerald-50' : 'bg-indigo-50'}`}>
-             <div className="mb-8">
-                {paymentMethod === 'ESEWA' ? <EsewaLogo className="w-24 h-24 !rounded-[32px]" /> : <KhaltiLogo className="w-24 h-24 !rounded-[32px]" />}
+        <div className="fixed inset-0 z-[100] bg-slate-950/80 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-fade-in">
+           <div className="bg-white rounded-[36px] max-w-md w-full p-8 text-center shadow-2xl border border-purple-100 flex flex-col items-center relative overflow-hidden">
+             {/* Khalti Top Brand Accent */}
+             <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-[#5c2d91] via-purple-600 to-indigo-600"></div>
+
+             <div className="mb-5 mt-2">
+                <KhaltiLogo className="w-20 h-20 !rounded-3xl shadow-xl shadow-purple-500/20" />
              </div>
-             <h2 className="text-2xl font-bold text-slate-900 mb-2">Secure Payment</h2>
-             <p className="text-gray-400 font-medium mb-10 text-sm">Synchronizing with your provider...</p>
-             <div className="w-full bg-gray-200 rounded-full h-1.5 mb-6 overflow-hidden"><div className="h-full bg-emerald-500 rounded-full animate-[progress_1.5s_infinite]" style={{width: '60%'}}></div></div>
-             <div className="flex items-center gap-2 text-[10px] font-black text-gray-300 uppercase tracking-widest"><ShieldCheck size={14} /> End-to-End Encrypted</div>
+
+             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-50 text-[#5c2d91] text-[11px] font-bold uppercase tracking-wider mb-2 border border-purple-100">
+               <ShieldCheck size={14} className="text-purple-600" /> Khalti Payment Gateway
+             </div>
+
+             <h2 className="text-2xl font-black text-slate-900 tracking-tight">Authenticating Khalti</h2>
+             <p className="text-xs text-slate-500 mt-1 mb-6">Securing reservation with instant NPR wallet settlement</p>
+
+             <div className="w-full bg-purple-50/80 rounded-2xl p-4 mb-6 border border-purple-100 text-left text-xs space-y-2">
+               <div className="flex justify-between">
+                 <span className="text-slate-500">Khalti Account:</span>
+                 <span className="font-mono font-bold text-purple-950">{khaltiMobile}</span>
+               </div>
+               <div className="flex justify-between">
+                 <span className="text-slate-500">Merchant:</span>
+                 <span className="font-semibold text-slate-800">Mero Stays Nepal Ltd.</span>
+               </div>
+               <div className="flex justify-between pt-1 border-t border-purple-200/60">
+                 <span className="font-bold text-slate-700">Total Settlement:</span>
+                 <span className="font-black text-purple-900 text-sm">NPR {totalCost.toLocaleString()}</span>
+               </div>
+             </div>
+
+             {/* Status indicator */}
+             <div className="w-full space-y-3 mb-6">
+               <div className="flex items-center justify-between text-[11px] font-semibold text-purple-900">
+                 <span>
+                   {paymentStep === 'CONNECTING' && 'Connecting to Khalti API servers...'}
+                   {paymentStep === 'AUTHORIZING' && 'Authorizing wallet token & balance...'}
+                   {paymentStep === 'SUCCESS' && 'Payment verified & approved!'}
+                 </span>
+                 {paymentStep !== 'SUCCESS' ? (
+                   <Loader2 size={14} className="animate-spin text-purple-600 inline" />
+                 ) : (
+                   <CheckCircle size={15} className="text-emerald-500 inline" />
+                 )}
+               </div>
+               <div className="w-full bg-purple-100 rounded-full h-2 overflow-hidden">
+                 <div 
+                   className="h-full bg-gradient-to-r from-[#5c2d91] to-purple-500 rounded-full transition-all duration-500" 
+                   style={{
+                     width: paymentStep === 'CONNECTING' ? '35%' : paymentStep === 'AUTHORIZING' ? '75%' : '100%'
+                   }}
+                 />
+               </div>
+             </div>
+
+             <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+               <Lock size={12} /> 256-Bit SSL • Nepal Rastra Bank Regulated
+             </div>
            </div>
         </div>
       )}
@@ -337,17 +405,21 @@ export const BookingSummary: React.FC = () => {
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in">
               <div className="bg-white rounded-[40px] shadow-2xl max-w-md w-full p-10 border border-white flex flex-col gap-6 ring-1 ring-black/5">
                   <div className="flex items-center gap-4">
-                      <div className="p-3 bg-emerald-50 text-emerald-600 rounded-2xl border border-emerald-100"><AlertCircle size={28} /></div>
-                      <h3 className="text-2xl font-bold text-slate-900 font-serif">Confirm Stay</h3>
+                      <div className="p-3 bg-purple-50 text-purple-700 rounded-2xl border border-purple-100"><ShieldCheck size={28} /></div>
+                      <div>
+                        <h3 className="text-2xl font-bold text-slate-900 font-serif">Confirm Stay</h3>
+                        <p className="text-[11px] text-purple-700 font-medium">Khalti Instant Checkout</p>
+                      </div>
                   </div>
                   <div className="space-y-4 bg-gray-50 p-6 rounded-3xl text-sm border border-gray-100">
                       <div className="flex justify-between"><span className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Suite</span><span className="font-bold text-slate-900">{room.name}</span></div>
                       <div className="flex justify-between"><span className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Guest</span><span className="font-bold text-slate-900">{guestDetails.name}</span></div>
-                      <div className="flex justify-between"><span className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Total</span><span className="font-black text-emerald-600">NPR {totalCost.toLocaleString()}</span></div>
+                      <div className="flex justify-between"><span className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Gateway</span><span className="font-bold text-purple-900">Khalti Digital Wallet</span></div>
+                      <div className="flex justify-between pt-2 border-t border-gray-200"><span className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Total</span><span className="font-black text-emerald-600">NPR {totalCost.toLocaleString()}</span></div>
                   </div>
-                  <div className="flex gap-3 mt-4">
+                  <div className="flex gap-3 mt-2">
                       <Button variant="secondary" onClick={() => setShowConfirmModal(false)} className="flex-1 rounded-2xl h-14 font-bold">Cancel</Button>
-                      <Button onClick={() => { setShowConfirmModal(false); processBooking(); }} className="flex-1 rounded-2xl h-14 font-bold shadow-xl shadow-emerald-600/20">Confirm</Button>
+                      <Button onClick={() => { setShowConfirmModal(false); processBooking(); }} className="flex-1 rounded-2xl h-14 font-bold bg-[#5c2d91] hover:bg-[#481e78] text-white shadow-xl shadow-purple-600/20">Pay via Khalti</Button>
                   </div>
               </div>
           </div>
@@ -378,20 +450,100 @@ export const BookingSummary: React.FC = () => {
                         </div>
                     </div>
 
-                    <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-6 ml-2">Secure Payment Gateway</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
-                        <button onClick={() => setPaymentMethod('CASH')} className={`p-6 rounded-[28px] border-2 flex flex-col items-center justify-center gap-3 transition-all ${paymentMethod === 'CASH' ? 'border-emerald-600 bg-emerald-50 text-emerald-900 shadow-xl scale-[1.02]' : 'border-gray-100 bg-white text-gray-400 hover:border-emerald-100'}`}>
-                            <Banknote size={32} />
-                            <span className="text-[10px] font-black uppercase tracking-widest">Pay at Hotel</span>
-                        </button>
-                        <button onClick={() => setPaymentMethod('ESEWA')} className={`p-6 rounded-[28px] border-2 flex flex-col items-center justify-center gap-3 transition-all ${paymentMethod === 'ESEWA' ? 'border-emerald-600 bg-emerald-50 text-emerald-900 shadow-xl scale-[1.02]' : 'border-gray-100 bg-white text-gray-400 hover:border-emerald-100'}`}>
-                            <EsewaLogo />
-                            <span className="text-[10px] font-black uppercase tracking-widest">eSewa</span>
-                        </button>
-                        <button onClick={() => setPaymentMethod('KHALTI')} className={`p-6 rounded-[28px] border-2 flex flex-col items-center justify-center gap-3 transition-all ${paymentMethod === 'KHALTI' ? 'border-emerald-600 bg-emerald-50 text-emerald-900 shadow-xl scale-[1.02]' : 'border-gray-100 bg-white text-gray-400 hover:border-emerald-100'}`}>
-                            <KhaltiLogo />
-                            <span className="text-[10px] font-black uppercase tracking-widest">Khalti</span>
-                        </button>
+                    {/* Exclusive Khalti Payment Gateway Card */}
+                    <div className="mb-12">
+                      <div className="flex items-center justify-between mb-4 ml-1">
+                        <div className="flex items-center gap-2">
+                          <h3 className="text-[11px] font-black text-slate-900 uppercase tracking-[0.25em]">
+                            Active Payment Gateway
+                          </h3>
+                          <span className="bg-purple-100 text-[#5c2d91] font-bold text-[10px] px-2.5 py-0.5 rounded-full border border-purple-200">
+                            Khalti Exclusive
+                          </span>
+                        </div>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1">
+                          <ShieldCheck size={13} className="text-[#5c2d91]" /> Instant NPR Settle
+                        </span>
+                      </div>
+
+                      <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-[#5c2d91] via-[#481e78] to-[#2c0b55] p-7 text-white shadow-xl shadow-purple-950/20 border border-purple-400/30">
+                        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-purple-400/20 blur-3xl pointer-events-none" />
+
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-purple-400/20">
+                          <div className="flex items-center gap-3.5">
+                            <div className="w-12 h-12 rounded-2xl bg-white text-[#5c2d91] flex items-center justify-center font-black text-xl shadow-md shrink-0">
+                              Kh
+                            </div>
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <h4 className="font-bold text-lg text-white">Khalti Digital Wallet</h4>
+                                <span className="text-[9px] bg-amber-400 text-purple-950 font-black px-1.5 py-0.5 rounded uppercase tracking-wider">
+                                  Default Gateway
+                                </span>
+                              </div>
+                              <p className="text-xs text-purple-200 mt-0.5">
+                                Official & exclusive payment provider for Mero Stays reservations
+                              </p>
+                            </div>
+                          </div>
+                          <div className="text-left sm:text-right shrink-0">
+                            <span className="text-[10px] text-purple-300 font-bold uppercase tracking-wider block">Processing Fee</span>
+                            <span className="text-sm font-black text-emerald-300">NPR 0 (Free)</span>
+                          </div>
+                        </div>
+
+                        {/* Interactive Khalti details / quick demo */}
+                        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-[10px] font-bold uppercase tracking-wider text-purple-200 mb-1.5 flex items-center justify-between">
+                              <span className="flex items-center gap-1"><Smartphone size={12} /> Khalti Mobile Number</span>
+                              <span className="text-purple-300 text-[9px] font-normal">Nepal (+977)</span>
+                            </label>
+                            <input
+                              type="text"
+                              value={khaltiMobile}
+                              onChange={e => setKhaltiMobile(e.target.value)}
+                              placeholder="98XXXXXXXX"
+                              className="w-full px-3.5 py-2.5 rounded-xl bg-purple-950/60 border border-purple-400/30 text-white font-mono text-sm placeholder-purple-400/50 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-[10px] font-bold uppercase tracking-wider text-purple-200 mb-1.5 flex items-center justify-between">
+                              <span className="flex items-center gap-1"><Lock size={12} /> Khalti MPIN (Demo)</span>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setKhaltiMobile('9801234567');
+                                  setKhaltiPin('1234');
+                                  showToast('info', 'Demo Khalti credentials loaded.');
+                                }}
+                                className="text-[9px] text-amber-300 hover:text-amber-200 underline font-semibold"
+                              >
+                                Fill Demo
+                              </button>
+                            </label>
+                            <input
+                              type="password"
+                              maxLength={4}
+                              value={khaltiPin}
+                              onChange={e => setKhaltiPin(e.target.value)}
+                              placeholder="••••"
+                              className="w-full px-3.5 py-2.5 rounded-xl bg-purple-950/60 border border-purple-400/30 text-white font-mono text-sm placeholder-purple-400/50 tracking-widest focus:outline-none focus:ring-2 focus:ring-purple-400"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="mt-5 pt-4 border-t border-purple-400/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11px] text-purple-200">
+                          <div className="flex items-center gap-2">
+                            <ShieldCheck size={15} className="text-amber-400 shrink-0" />
+                            <span>Regulated by Nepal Rastra Bank • Instant 1-touch token authorization</span>
+                          </div>
+                          <span className="text-[10px] bg-purple-900/80 border border-purple-400/30 px-2.5 py-0.5 rounded text-purple-200 font-medium">
+                            Khalti Wallet & Mobile Banking
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
                     <div className="space-y-6 pt-10 border-t border-gray-100">

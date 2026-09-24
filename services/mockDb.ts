@@ -238,7 +238,7 @@ export const INITIAL_BOOKINGS: Booking[] = [
     channel: 'DIRECT',
     totalPrice: 2200,
     status: 'CHECKED_IN',
-    paymentMethod: 'CARD',
+    paymentMethod: 'KHALTI',
     paymentStatus: 'PAID',
     notes: 'VIP Guest. Preferred quiet floor, sparkling water, late checkout requested.',
     charges: [
@@ -266,7 +266,7 @@ export const INITIAL_BOOKINGS: Booking[] = [
     channel: 'BOOKING_COM',
     totalPrice: 1120,
     status: 'CONFIRMED',
-    paymentMethod: 'CARD',
+    paymentMethod: 'KHALTI',
     paymentStatus: 'PAID',
     notes: 'Arriving late at 20:30 via British Airways.',
     charges: [
@@ -292,7 +292,7 @@ export const INITIAL_BOOKINGS: Booking[] = [
     channel: 'AIRBNB',
     totalPrice: 1170,
     status: 'CHECKED_IN',
-    paymentMethod: 'CARD',
+    paymentMethod: 'KHALTI',
     paymentStatus: 'PAID',
     notes: 'Anniversary celebration. Complimentary champagne sent.',
     charges: [
@@ -319,7 +319,7 @@ export const INITIAL_BOOKINGS: Booking[] = [
     channel: 'EXPEDIA',
     totalPrice: 840,
     status: 'CONFIRMED',
-    paymentMethod: 'CARD',
+    paymentMethod: 'KHALTI',
     paymentStatus: 'PAID',
     notes: 'Corporate rate applied. High floor request.',
     charges: [
@@ -345,7 +345,7 @@ export const INITIAL_BOOKINGS: Booking[] = [
     channel: 'DIRECT',
     totalPrice: 640,
     status: 'CHECKED_IN',
-    paymentMethod: 'ESEWA',
+    paymentMethod: 'KHALTI',
     paymentStatus: 'PAID',
     notes: 'Requested lakeside yoga mat and early kayak departure.',
     charges: [
@@ -371,7 +371,7 @@ export const INITIAL_BOOKINGS: Booking[] = [
     channel: 'AGODA',
     totalPrice: 840,
     status: 'CONFIRMED',
-    paymentMethod: 'CARD',
+    paymentMethod: 'KHALTI',
     paymentStatus: 'PAID',
     notes: 'Honeymoon couple. Mountain binoculars and herbal tea basket provided.',
     charges: [
@@ -1039,7 +1039,7 @@ export const createBooking = async (data: Partial<Booking>): Promise<Booking> =>
     channel: data.channel || 'DIRECT',
     totalPrice: data.totalPrice || 500,
     status: data.status || 'CONFIRMED',
-    paymentMethod: data.paymentMethod || 'CARD',
+    paymentMethod: 'KHALTI',
     paymentStatus: data.paymentStatus || 'PAID',
     notes: data.notes || '',
     charges: data.charges || [

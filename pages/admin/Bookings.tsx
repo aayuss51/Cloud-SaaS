@@ -211,13 +211,18 @@ export const Bookings: React.FC = () => {
                       <p className="font-black text-white text-xs">
                         {currency}{b.totalPrice.toLocaleString()}
                       </p>
-                      <span
-                        className={`text-[10px] font-bold ${
-                          b.paymentStatus === 'PAID' ? 'text-emerald-400' : 'text-amber-400'
-                        }`}
-                      >
-                        {b.paymentStatus} ({b.paymentMethod})
-                      </span>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <span
+                          className={`text-[10px] font-bold ${
+                            b.paymentStatus === 'PAID' ? 'text-emerald-400' : 'text-amber-400'
+                          }`}
+                        >
+                          {b.paymentStatus}
+                        </span>
+                        <span className="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30 font-bold uppercase tracking-wider">
+                          {b.paymentMethod}
+                        </span>
+                      </div>
                     </td>
 
                     <td onClick={() => setSelectedBooking(b)} className="p-4">

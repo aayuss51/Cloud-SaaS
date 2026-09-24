@@ -187,7 +187,7 @@ export const Home: React.FC = () => {
               <CheckCircle2 size={13} className="text-emerald-400" /> Best Rate Guarantee
             </span>
             <span className="flex items-center gap-1.5 bg-black/30 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-              <CheckCircle2 size={13} className="text-emerald-400" /> Instant eSewa, Khalti & Cards
+              <CheckCircle2 size={13} className="text-purple-400" /> Instant Khalti Digital Payment
             </span>
             <span className="flex items-center gap-1.5 bg-black/30 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
               <CheckCircle2 size={13} className="text-emerald-400" /> Free Cancellation Options
@@ -626,10 +626,10 @@ export const Home: React.FC = () => {
               ))}
             </div>
             <p className="text-xs text-stone-600 italic leading-relaxed">
-              "The eSewa instant payment option was so smooth. The front desk staff in Nagarkot had our room ready early with hot Himalayan tea. Exceptional hospitality."
+              "The Khalti instant digital payment was so effortless. In seconds the booking was confirmed, and the front desk staff in Nagarkot had our room ready early with hot Himalayan tea. Exceptional hospitality."
             </p>
             <div className="pt-2 border-t border-stone-100 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-teal-100 text-teal-800 font-bold flex items-center justify-center text-xs">
+              <div className="w-9 h-9 rounded-full bg-purple-100 text-purple-800 font-bold flex items-center justify-center text-xs">
                 SK
               </div>
               <div>
@@ -646,7 +646,7 @@ export const Home: React.FC = () => {
               ))}
             </div>
             <p className="text-xs text-stone-600 italic leading-relaxed">
-              "As an international traveler from Zurich, I appreciated being able to view room rates in USD and pay with Visa, but also have local Nepalese currency bills for dining. 10/10 service!"
+              "Settling our stay via Khalti Digital Wallet was fast and secure. The invoice in Nepali Rupees was generated instantly and our reservation was synced on arrival. 10/10 service!"
             </p>
             <div className="pt-2 border-t border-stone-100 flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-amber-100 text-amber-800 font-bold flex items-center justify-center text-xs">
@@ -676,7 +676,7 @@ export const Home: React.FC = () => {
           {[
             {
               q: 'What payment methods are supported for booking?',
-              a: 'You can pay instantly using eSewa, Khalti, major international credit/debit cards (Visa, Mastercard), or choose "Cash on Arrival" at the hotel front desk.'
+              a: 'Our booking platform currently supports digital payments exclusively via Khalti Digital Wallet. You can settle reservations instantly using your Khalti wallet balance or linked mobile banking.'
             },
             {
               q: 'What are standard check-in and check-out timings?',
