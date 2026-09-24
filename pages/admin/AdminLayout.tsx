@@ -15,17 +15,20 @@ import {
   Settings,
   Menu,
   X,
-  LogOut,
-  ChevronRight,
-  ExternalLink,
-  ShieldAlert,
+  Lock,
+  Grid,
+  ShieldCheck,
+  SlidersHorizontal,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTenant } from '../../context/TenantContext';
 import { SaaSTopBar } from '../../components/SaaSTopBar';
 import { NewPropertyModal } from '../../components/NewPropertyModal';
 import { UpgradePlanModal } from '../../components/UpgradePlanModal';
+import { RolePermissionsMatrixModal } from '../../components/RolePermissionsMatrixModal';
+import { RoleBadge } from '../../components/RoleGuard';
 import { UserRole } from '../../types';
+import { hasAnyRole, ROLE_CONFIGS } from '../../services/permissions';
 
 interface NavItem {
   to: string;
@@ -42,19 +45,71 @@ export const AdminLayout: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNewPropModalOpen, setIsNewPropModalOpen] = useState(false);
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+  const [isMatrixOpen, setIsMatrixOpen] = useState(false);
+  const [showLockedItems, setShowLockedItems] = useState(true);
   const location = useLocation();
+
+  const currentRole = user?.role || 'GUEST';
+  const roleMeta = ROLE_CONFIGS[currentRole] || ROLE_CONFIGS.GUEST;
 
   const navItems: NavItem[] = [
     { to: '/admin', label: 'Overview & KPIs', icon: LayoutDashboard, exact: true },
-    { to: '/admin/tape-chart', label: 'Tape Chart (Room Rack)', icon: CalendarDays, badge: 'Live' },
-    { to: '/admin/bookings', label: 'Central CRS Bookings', icon: BookmarkCheck },
-    { to: '/admin/rooms', label: 'Rooms & Inventory', icon: BedDouble },
-    { to: '/admin/channels', label: 'OTA Channel Manager', icon: RefreshCw, badge: '2-Way' },
-    { to: '/admin/housekeeping', label: 'Housekeeping Dispatch', icon: Sparkles },
-    { to: '/admin/tasks', label: 'Operational Tasks', icon: CheckSquare },
-    { to: '/admin/reviews', label: 'Guest Reputation', icon: Star },
-    { to: '/admin/users', label: 'Staff & Permissions', icon: Users, allowedRoles: ['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN'] },
-    { to: '/admin/billing', label: 'SaaS Subscription & Plan', icon: CreditCard },
+    {
+      to: '/admin/tape-chart',
+      label: 'Tape Chart (Room Rack)',
+      icon: CalendarDays,
+      badge: 'Live',
+      allowedRoles: ['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK'],
+    },
+    {
+      to: '/admin/bookings',
+      label: 'Central CRS Bookings',
+      icon: BookmarkCheck,
+      allowedRoles: ['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK'],
+    },
+    {
+      to: '/admin/rooms',
+      label: 'Rooms & Inventory',
+      icon: BedDouble,
+      allowedRoles: ['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK'],
+    },
+    {
+      to: '/admin/channels',
+      label: 'OTA Channel Manager',
+      icon: RefreshCw,
+      badge: '2-Way',
+      allowedRoles: ['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK'],
+    },
+    {
+      to: '/admin/housekeeping',
+      label: 'Housekeeping Dispatch',
+      icon: Sparkles,
+      allowedRoles: ['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK', 'HOUSEKEEPING'],
+    },
+    {
+      to: '/admin/tasks',
+      label: 'Operational Tasks',
+      icon: CheckSquare,
+      allowedRoles: ['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK', 'HOUSEKEEPING'],
+    },
+    {
+      to: '/admin/reviews',
+      label: 'Guest Reputation',
+      icon: Star,
+      allowedRoles: ['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK'],
+    },
+    {
+      to: '/admin/users',
+      label: 'Staff & Permissions',
+      icon: Users,
+      allowedRoles: ['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN'],
+    },
+    {
+      to: '/admin/billing',
+      label: 'SaaS Subscription & Plan',
+      icon: CreditCard,
+      allowedRoles: ['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN'],
+    },
     {
       to: '/admin/tenants',
       label: 'Multi-Property Hub',
@@ -72,9 +127,8 @@ export const AdminLayout: React.FC = () => {
 
   const visibleNav = navItems.filter(item => {
     if (!item.allowedRoles) return true;
-    if (!user?.role) return false;
-    if (user.role === 'SUPER_ADMIN') return true;
-    return item.allowedRoles.includes(user.role);
+    if (showLockedItems) return true; // Show with lock badge
+    return hasAnyRole(currentRole, item.allowedRoles);
   });
 
   return (
@@ -83,6 +137,7 @@ export const AdminLayout: React.FC = () => {
       <SaaSTopBar
         onOpenNewPropertyModal={() => setIsNewPropModalOpen(true)}
         onOpenUpgradeModal={() => setIsUpgradeModalOpen(true)}
+        onOpenMatrixModal={() => setIsMatrixOpen(true)}
       />
 
       <div className="flex-1 flex flex-col md:flex-row">
@@ -90,9 +145,7 @@ export const AdminLayout: React.FC = () => {
         <div className="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-3 flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
             <span className="font-bold text-slate-900 dark:text-white">{currentProperty?.name}</span>
-            <span className="bg-slate-100 dark:bg-slate-800 text-[10px] text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded uppercase font-semibold">
-              {currentProperty?.tier}
-            </span>
+            <RoleBadge role={currentRole} size="sm" />
           </div>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -109,76 +162,130 @@ export const AdminLayout: React.FC = () => {
           w-full md:w-64 shrink-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between transition-colors
         `}
         >
-          <div className="p-4 space-y-6">
+          <div className="p-4 space-y-4">
+            {/* Active Role & Persona Banner */}
+            <div className="bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-3 text-xs space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-400 tracking-wider">
+                  Active Persona
+                </span>
+                <span className="text-[9px] bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-mono px-1.5 py-0.2 rounded font-semibold">
+                  Tier {roleMeta.level}/5
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <RoleBadge role={currentRole} size="md" />
+              </div>
+
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
+                {user?.name} • {user?.designation || roleMeta.title}
+              </p>
+
+              <button
+                onClick={() => setIsMatrixOpen(true)}
+                className="w-full flex items-center justify-center gap-1.5 py-1.5 px-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-lg text-[11px] font-bold border border-blue-500/20 transition-all text-center"
+              >
+                <Grid size={12} />
+                <span>View RBAC Matrix</span>
+              </button>
+            </div>
+
             {/* Active Property Card */}
             {currentProperty && !isAllPropertiesView ? (
-              <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 rounded-xl p-3 text-xs">
+              <div className="bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-xs">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">
-                    Active Tenant
+                  <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                    Active Property
                   </span>
                   <span className="text-[9px] bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-500/30 px-1.5 py-0.2 rounded font-mono font-semibold">
                     {currentProperty.tier}
                   </span>
                 </div>
-                <h4 className="font-bold text-slate-900 dark:text-white text-sm truncate">{currentProperty.name}</h4>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                <h4 className="font-bold text-slate-900 dark:text-white text-xs truncate">{currentProperty.name}</h4>
+                <p className="text-[10px] text-slate-400 truncate mt-0.5">
                   {currentProperty.city}, {currentProperty.country}
                 </p>
-
-                <div className="mt-3 pt-2.5 border-t border-slate-200 dark:border-slate-700/60 flex items-center justify-between text-[11px]">
-                  <span className="text-slate-500 dark:text-slate-400">Capacity:</span>
-                  <span className="font-semibold text-slate-800 dark:text-slate-200">
-                    Max {currentProperty.roomLimit} Rooms
-                  </span>
-                </div>
               </div>
             ) : (
               <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-500/30 rounded-xl p-3 text-xs text-blue-700 dark:text-blue-300">
-                <p className="font-bold">Global SaaS View</p>
-                <p className="text-[11px] text-blue-600 dark:text-blue-400/80 mt-0.5">All properties aggregated</p>
+                <p className="font-bold text-xs">Global SaaS View</p>
+                <p className="text-[10px] text-blue-600 dark:text-blue-400/80 mt-0.5">All properties aggregated</p>
               </div>
             )}
 
             {/* Menu Items */}
             <div className="space-y-1">
-              <p className="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
-                Operations & Management
-              </p>
+              <div className="flex items-center justify-between px-3 mb-2">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                  Operations & Management
+                </p>
+                <button
+                  onClick={() => setShowLockedItems(!showLockedItems)}
+                  className="text-[10px] text-slate-400 hover:text-blue-500 flex items-center gap-1"
+                  title="Toggle locked role items visibility"
+                >
+                  <SlidersHorizontal size={11} />
+                  <span>{showLockedItems ? 'All' : 'Filtered'}</span>
+                </button>
+              </div>
+
               {visibleNav.map(item => {
                 const isActive = item.exact
                   ? location.pathname === item.to
                   : location.pathname.startsWith(item.to);
+
+                const hasAccess = !item.allowedRoles || hasAnyRole(currentRole, item.allowedRoles);
 
                 return (
                   <NavLink
                     key={item.to}
                     to={item.to}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all group ${
+                    className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all group ${
                       isActive
                         ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20 font-bold'
-                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80'
+                        : hasAccess
+                        ? 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/80'
+                        : 'text-slate-400 dark:text-slate-500 hover:bg-slate-100/50 dark:hover:bg-slate-800/40 opacity-70'
                     }`}
                   >
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2.5 truncate pr-2">
                       <item.icon
                         size={16}
-                        className={isActive ? 'text-white' : 'text-slate-400 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400'}
-                      />
-                      <span>{item.label}</span>
-                    </div>
-                    {item.badge && (
-                      <span
-                        className={`text-[9px] px-1.5 py-0.2 rounded font-bold uppercase ${
+                        className={
                           isActive
-                            ? 'bg-blue-800 text-blue-100'
-                            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700'
-                        }`}
-                      >
-                        {item.badge}
-                      </span>
-                    )}
+                            ? 'text-white'
+                            : hasAccess
+                            ? 'text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400'
+                            : 'text-slate-400 dark:text-slate-600'
+                        }
+                      />
+                      <span className="truncate">{item.label}</span>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      {!hasAccess && (
+                        <span
+                          className="text-[9px] px-1.5 py-0.5 rounded font-bold uppercase bg-amber-500/10 text-amber-500 dark:text-amber-400 border border-amber-500/20 flex items-center gap-1"
+                          title={`Locked for ${roleMeta.title}`}
+                        >
+                          <Lock size={9} />
+                          <span>Locked</span>
+                        </span>
+                      )}
+                      {item.badge && (
+                        <span
+                          className={`text-[9px] px-1.5 py-0.2 rounded font-bold uppercase ${
+                            isActive
+                              ? 'bg-blue-800 text-blue-100'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700'
+                          }`}
+                        >
+                          {item.badge}
+                        </span>
+                      )}
+                    </div>
                   </NavLink>
                 );
               })}
@@ -218,6 +325,11 @@ export const AdminLayout: React.FC = () => {
         isOpen={isUpgradeModalOpen}
         onClose={() => setIsUpgradeModalOpen(false)}
       />
+      <RolePermissionsMatrixModal
+        isOpen={isMatrixOpen}
+        onClose={() => setIsMatrixOpen(false)}
+      />
     </div>
   );
 };
+

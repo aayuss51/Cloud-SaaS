@@ -10,13 +10,18 @@ import {
   Sparkles,
   Layers,
   Crown,
+  Lock,
+  Eye,
 } from 'lucide-react';
 import { useTenant } from '../../context/TenantContext';
+import { useAuth } from '../../context/AuthContext';
 import { getRooms, saveRoom, deleteRoom, getFacilities } from '../../services/mockDb';
 import { RoomType, Facility } from '../../types';
+import { RoleGuard, RoleBadge } from '../../components/RoleGuard';
 
 export const Rooms: React.FC = () => {
   const { currentProperty } = useTenant();
+  const { user, can } = useAuth();
   const [rooms, setRooms] = useState<RoomType[]>([]);
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -132,13 +137,28 @@ export const Rooms: React.FC = () => {
           </p>
         </div>
 
-        <button
-          onClick={openCreateModal}
-          className="flex items-center gap-1.5 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 transition-all"
-        >
-          <Plus size={15} />
-          <span>Add Room Type</span>
-        </button>
+        <div className="flex items-center gap-3">
+          {!can('pms:rooms:create') && (
+            <div className="flex items-center gap-1.5 text-xs text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl">
+              <Eye size={14} className="text-blue-400" />
+              <span>Read-Only View</span>
+            </div>
+          )}
+
+          <RoleGuard
+            permission="pms:rooms:create"
+            renderDisabled={true}
+            disabledTooltip="Requires Hotel Admin or Enterprise Admin privilege"
+          >
+            <button
+              onClick={openCreateModal}
+              className="flex items-center gap-1.5 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 transition-all"
+            >
+              <Plus size={15} />
+              <span>Add Room Type</span>
+            </button>
+          </RoleGuard>
+        </div>
       </div>
 
       {/* Room Grid */}
@@ -200,20 +220,33 @@ export const Rooms: React.FC = () => {
 
               {/* Actions */}
               <div className="pt-4 border-t border-slate-800 flex items-center justify-end gap-2">
-                <button
-                  onClick={() => openEditModal(room)}
-                  className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
-                  title="Edit Room"
+                <RoleGuard
+                  permission="pms:rooms:edit_rates"
+                  renderDisabled={true}
+                  disabledTooltip="Requires Hotel Admin or Enterprise Admin privilege"
                 >
-                  <Edit2 size={15} />
-                </button>
-                <button
-                  onClick={() => handleDelete(room.id)}
-                  className="p-2 text-rose-400 hover:text-rose-300 hover:bg-rose-950/40 rounded-lg transition-colors"
-                  title="Delete Room"
+                  <button
+                    onClick={() => openEditModal(room)}
+                    className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+                    title="Edit Room"
+                  >
+                    <Edit2 size={15} />
+                  </button>
+                </RoleGuard>
+
+                <RoleGuard
+                  permission="pms:rooms:delete"
+                  renderDisabled={true}
+                  disabledTooltip="SuperAdmin & Enterprise Admin only: cannot delete active inventory"
                 >
-                  <Trash2 size={15} />
-                </button>
+                  <button
+                    onClick={() => handleDelete(room.id)}
+                    className="p-2 text-rose-400 hover:text-rose-300 hover:bg-rose-950/40 rounded-lg transition-colors"
+                    title="Delete Room"
+                  >
+                    <Trash2 size={15} />
+                  </button>
+                </RoleGuard>
               </div>
             </div>
           </div>

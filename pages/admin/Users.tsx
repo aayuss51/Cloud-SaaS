@@ -2,17 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUsers, updateUserRole } from '../../services/mockDb';
 import { User, UserRole } from '../../types';
-import { Loader2, Shield, User as UserIcon, ChevronLeft, ChevronDown, CheckCircle2 } from 'lucide-react';
+import { Loader2, Shield, User as UserIcon, ChevronLeft, ChevronDown, CheckCircle2, Grid, Plus, Lock } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { RoleBadge, RoleGuard } from '../../components/RoleGuard';
+import { RolePermissionsMatrixModal } from '../../components/RolePermissionsMatrixModal';
 
 export const Users: React.FC = () => {
   const navigate = useNavigate();
-  const { user: currentUser } = useAuth();
+  const { user: currentUser, can, isSuperAdmin, isHotelAdmin } = useAuth();
   const { showToast } = useToast();
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [processingId, setProcessingId] = useState<string | null>(null);
+  const [isMatrixOpen, setIsMatrixOpen] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -34,13 +37,15 @@ export const Users: React.FC = () => {
     try {
       await updateUserRole(userId, newRole);
       setUsers(prev => prev.map(u => (u.id === userId ? { ...u, role: newRole } : u)));
-      showToast('success', 'User role updated.');
+      showToast('success', `User role successfully updated to ${newRole}.`);
     } catch (error) {
       showToast('error', 'Failed to update user role.');
     } finally {
       setProcessingId(null);
     }
   };
+
+  const canEditRoles = isSuperAdmin || isHotelAdmin || can('pms:users:change_role');
 
   if (isLoading) {
     return (
@@ -68,6 +73,16 @@ export const Users: React.FC = () => {
             Manage hotel team roles, department designations, and platform security privileges.
           </p>
         </div>
+
+        <div className="flex items-center gap-2.5">
+          <button
+            onClick={() => setIsMatrixOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-blue-400 rounded-xl text-xs font-bold border border-slate-700 transition-all"
+          >
+            <Grid size={14} />
+            <span>Permissions Matrix</span>
+          </button>
+        </div>
       </div>
 
       <div className="bg-slate-900 rounded-2xl shadow-xl border border-slate-800 overflow-hidden">
@@ -94,7 +109,12 @@ export const Users: React.FC = () => {
                         )}
                       </div>
                       <div>
-                        <p className="font-bold text-white text-xs">{u.name}</p>
+                        <div className="flex items-center gap-1.5">
+                          <p className="font-bold text-white text-xs">{u.name}</p>
+                          {currentUser?.id === u.id && (
+                            <span className="text-[9px] bg-blue-500/20 text-blue-400 px-1 rounded font-bold">You</span>
+                          )}
+                        </div>
                         <p className="text-[10px] text-slate-500 font-mono">{u.id}</p>
                       </div>
                     </div>
@@ -111,24 +131,24 @@ export const Users: React.FC = () => {
                   </td>
 
                   <td className="px-6 py-4">
-                    {currentUser?.id === u.id ? (
-                      <span className="bg-slate-800 px-3 py-1.5 rounded-lg text-blue-400 font-bold border border-slate-700 inline-block text-[11px]">
-                        {u.role.replace('_', ' ')} (You)
-                      </span>
-                    ) : (
-                      <select
-                        disabled={processingId === u.id}
-                        value={u.role}
-                        onChange={e => handleRoleChange(u.id, e.target.value as UserRole)}
-                        className="bg-slate-850 border border-slate-700 text-white text-xs rounded-lg px-2.5 py-1.5 focus:ring-1 focus:ring-blue-500"
-                      >
-                        <option value="SUPER_ADMIN">Platform SuperAdmin</option>
-                        <option value="HOTEL_ADMIN">General Manager (Admin)</option>
-                        <option value="FRONT_DESK">Front Desk Agent</option>
-                        <option value="HOUSEKEEPING">Housekeeping Lead</option>
-                        <option value="GUEST">Guest</option>
-                      </select>
-                    )}
+                    <div className="flex items-center gap-2">
+                      <RoleBadge role={u.role} size="sm" />
+                      {canEditRoles && currentUser?.id !== u.id ? (
+                        <select
+                          disabled={processingId === u.id}
+                          value={u.role}
+                          onChange={e => handleRoleChange(u.id, e.target.value as UserRole)}
+                          className="bg-slate-850 border border-slate-700 text-white text-[11px] rounded-lg px-2 py-1 focus:ring-1 focus:ring-blue-500"
+                        >
+                          <option value="SUPER_ADMIN">Platform SuperAdmin</option>
+                          <option value="ADMIN">Enterprise Admin</option>
+                          <option value="HOTEL_ADMIN">General Manager (Admin)</option>
+                          <option value="FRONT_DESK">Front Desk Agent</option>
+                          <option value="HOUSEKEEPING">Housekeeping Lead</option>
+                          <option value="GUEST">Guest</option>
+                        </select>
+                      ) : null}
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -136,6 +156,11 @@ export const Users: React.FC = () => {
           </table>
         </div>
       </div>
+
+      <RolePermissionsMatrixModal
+        isOpen={isMatrixOpen}
+        onClose={() => setIsMatrixOpen(false)}
+      />
     </div>
   );
 };

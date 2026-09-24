@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
@@ -26,11 +26,13 @@ import { MyBookings } from './pages/guest/MyBookings';
 import { Profile } from './pages/guest/Profile';
 import { ReviewPage } from './pages/guest/ReviewPage';
 import { GuestLayout } from './components/GuestLayout';
+import { SubRouteGuard } from './components/SubRouteGuard';
+import { FloatingRoleSimulator } from './components/FloatingRoleSimulator';
+import { RolePermissionsMatrixModal } from './components/RolePermissionsMatrixModal';
 import { UserRole } from './types';
-import { Crown, User as UserIcon, Building2, Sparkles } from 'lucide-react';
-import { Button } from './components/Button';
+import { isStaffRole } from './services/permissions';
 
-const ProtectedRoute: React.FC<{ children: React.ReactNode; requiredRole?: UserRole }> = ({
+const ProtectedRoute: React.FC<{ children: React.ReactNode; requiredRole?: 'STAFF' | UserRole }> = ({
   children,
   requiredRole,
 }) => {
@@ -41,11 +43,11 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode; requiredRole?: UserR
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-950 text-white">
         <div className="animate-pulse flex flex-col items-center gap-4">
-          <div className="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center font-bold">
+          <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center font-bold shadow-lg shadow-blue-500/20">
             PMS
           </div>
-          <p className="text-xs font-bold uppercase text-emerald-400 tracking-widest">
-            Loading SaaS Cloud...
+          <p className="text-xs font-bold uppercase text-blue-400 tracking-widest">
+            Loading Mero Booking Cloud...
           </p>
         </div>
       </div>
@@ -56,13 +58,12 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode; requiredRole?: UserR
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  const staffRoles: UserRole[] = ['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK', 'HOUSEKEEPING'];
-
-  if (requiredRole === 'ADMIN') {
-    if (staffRoles.includes(user.role)) {
+  // If a staff role is required (for admin portal)
+  if (requiredRole === 'STAFF' || requiredRole === 'ADMIN') {
+    if (isStaffRole(user.role)) {
       return <>{children}</>;
     } else {
-      return <Navigate to="/" replace />;
+      return <Navigate to="/my-bookings" replace />;
     }
   }
 
@@ -81,107 +82,269 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode; requiredRole?: UserR
   return <>{children}</>;
 };
 
+const AppRoutes: React.FC = () => {
+  const [isMatrixOpen, setIsMatrixOpen] = useState(false);
+
+  return (
+    <>
+      <Routes>
+        {/* Public & Guest Experience Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/"
+          element={
+            <GuestLayout>
+              <Home />
+            </GuestLayout>
+          }
+        />
+        <Route
+          path="/book"
+          element={
+            <ProtectedRoute>
+              <GuestLayout>
+                <BookingSummary />
+              </GuestLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/receipt/:bookingId"
+          element={
+            <ProtectedRoute>
+              <GuestLayout>
+                <BookingSummary />
+              </GuestLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/my-bookings"
+          element={
+            <ProtectedRoute>
+              <GuestLayout>
+                <MyBookings />
+              </GuestLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <GuestLayout>
+                <Profile />
+              </GuestLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/review/:bookingId"
+          element={
+            <ProtectedRoute>
+              <GuestLayout>
+                <ReviewPage />
+              </GuestLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Multi-Tenant SaaS PMS Admin Routes */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute requiredRole="STAFF">
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route
+            index
+            element={
+              <SubRouteGuard
+                allowedRoles={['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK', 'HOUSEKEEPING']}
+                moduleName="Overview & KPIs"
+                onOpenMatrix={() => setIsMatrixOpen(true)}
+              >
+                <Dashboard />
+              </SubRouteGuard>
+            }
+          />
+          <Route
+            path="tape-chart"
+            element={
+              <SubRouteGuard
+                allowedRoles={['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK']}
+                moduleName="Tape Chart (Room Rack)"
+                onOpenMatrix={() => setIsMatrixOpen(true)}
+              >
+                <TapeChart />
+              </SubRouteGuard>
+            }
+          />
+          <Route
+            path="bookings"
+            element={
+              <SubRouteGuard
+                allowedRoles={['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK']}
+                moduleName="Central CRS Bookings"
+                onOpenMatrix={() => setIsMatrixOpen(true)}
+              >
+                <Bookings />
+              </SubRouteGuard>
+            }
+          />
+          <Route
+            path="rooms"
+            element={
+              <SubRouteGuard
+                allowedRoles={['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK']}
+                moduleName="Rooms & Inventory"
+                onOpenMatrix={() => setIsMatrixOpen(true)}
+              >
+                <Rooms />
+              </SubRouteGuard>
+            }
+          />
+          <Route
+            path="channels"
+            element={
+              <SubRouteGuard
+                allowedRoles={['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK']}
+                moduleName="OTA Channel Manager"
+                onOpenMatrix={() => setIsMatrixOpen(true)}
+              >
+                <Channels />
+              </SubRouteGuard>
+            }
+          />
+          <Route
+            path="housekeeping"
+            element={
+              <SubRouteGuard
+                allowedRoles={['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK', 'HOUSEKEEPING']}
+                moduleName="Housekeeping Dispatch Board"
+                onOpenMatrix={() => setIsMatrixOpen(true)}
+              >
+                <Housekeeping />
+              </SubRouteGuard>
+            }
+          />
+          <Route
+            path="tasks"
+            element={
+              <SubRouteGuard
+                allowedRoles={['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK', 'HOUSEKEEPING']}
+                moduleName="Operational Tasks"
+                onOpenMatrix={() => setIsMatrixOpen(true)}
+              >
+                <Tasks />
+              </SubRouteGuard>
+            }
+          />
+          <Route
+            path="reviews"
+            element={
+              <SubRouteGuard
+                allowedRoles={['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN', 'FRONT_DESK']}
+                moduleName="Guest Reputation & Reviews"
+                onOpenMatrix={() => setIsMatrixOpen(true)}
+              >
+                <Reviews />
+              </SubRouteGuard>
+            }
+          />
+          <Route
+            path="facilities"
+            element={
+              <SubRouteGuard
+                allowedRoles={['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN']}
+                moduleName="Hotel Amenities & Facilities"
+                onOpenMatrix={() => setIsMatrixOpen(true)}
+              >
+                <Facilities />
+              </SubRouteGuard>
+            }
+          />
+          <Route
+            path="billing"
+            element={
+              <SubRouteGuard
+                allowedRoles={['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN']}
+                moduleName="SaaS Subscription & Invoices"
+                onOpenMatrix={() => setIsMatrixOpen(true)}
+              >
+                <Billing />
+              </SubRouteGuard>
+            }
+          />
+          <Route
+            path="tenants"
+            element={
+              <SubRouteGuard
+                allowedRoles={['SUPER_ADMIN']}
+                moduleName="Multi-Property SaaS Hub"
+                onOpenMatrix={() => setIsMatrixOpen(true)}
+              >
+                <Tenants />
+              </SubRouteGuard>
+            }
+          />
+          <Route
+            path="users"
+            element={
+              <SubRouteGuard
+                allowedRoles={['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN']}
+                moduleName="Staff & Access Governance"
+                onOpenMatrix={() => setIsMatrixOpen(true)}
+              >
+                <Users />
+              </SubRouteGuard>
+            }
+          />
+          <Route
+            path="settings"
+            element={
+              <SubRouteGuard
+                allowedRoles={['SUPER_ADMIN', 'ADMIN', 'HOTEL_ADMIN']}
+                moduleName="Property Master Settings"
+                onOpenMatrix={() => setIsMatrixOpen(true)}
+              >
+                <Settings />
+              </SubRouteGuard>
+            }
+          />
+        </Route>
+
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+
+      {/* Global Floating RBAC Simulator for seamless testing */}
+      <FloatingRoleSimulator onOpenMatrix={() => setIsMatrixOpen(true)} />
+
+      {/* Global Permissions Matrix Modal */}
+      <RolePermissionsMatrixModal
+        isOpen={isMatrixOpen}
+        onClose={() => setIsMatrixOpen(false)}
+      />
+    </>
+  );
+};
+
 const App: React.FC = () => {
   return (
     <ThemeProvider>
       <ToastProvider>
         <AuthProvider>
           <TenantProvider>
-          <Router>
-            <Routes>
-              {/* Public & Guest Experience Routes */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route
-                path="/"
-                element={
-                  <GuestLayout>
-                    <Home />
-                  </GuestLayout>
-                }
-              />
-              <Route
-                path="/book"
-                element={
-                  <ProtectedRoute>
-                    <GuestLayout>
-                      <BookingSummary />
-                    </GuestLayout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/receipt/:bookingId"
-                element={
-                  <ProtectedRoute>
-                    <GuestLayout>
-                      <BookingSummary />
-                    </GuestLayout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/my-bookings"
-                element={
-                  <ProtectedRoute>
-                    <GuestLayout>
-                      <MyBookings />
-                    </GuestLayout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute>
-                    <GuestLayout>
-                      <Profile />
-                    </GuestLayout>
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/review/:bookingId"
-                element={
-                  <ProtectedRoute>
-                    <GuestLayout>
-                      <ReviewPage />
-                    </GuestLayout>
-                  </ProtectedRoute>
-                }
-              />
-
-              {/* Multi-Tenant SaaS PMS Admin Routes */}
-              <Route
-                path="/admin"
-                element={
-                  <ProtectedRoute requiredRole="ADMIN">
-                    <AdminLayout />
-                  </ProtectedRoute>
-                }
-              >
-                <Route index element={<Dashboard />} />
-                <Route path="tape-chart" element={<TapeChart />} />
-                <Route path="bookings" element={<Bookings />} />
-                <Route path="rooms" element={<Rooms />} />
-                <Route path="channels" element={<Channels />} />
-                <Route path="housekeeping" element={<Housekeeping />} />
-                <Route path="tasks" element={<Tasks />} />
-                <Route path="reviews" element={<Reviews />} />
-                <Route path="facilities" element={<Facilities />} />
-                <Route path="billing" element={<Billing />} />
-                <Route path="tenants" element={<Tenants />} />
-                <Route path="users" element={<Users />} />
-                <Route path="settings" element={<Settings />} />
-              </Route>
-
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </Router>
-        </TenantProvider>
-      </AuthProvider>
-    </ToastProvider>
-  </ThemeProvider>
+            <Router>
+              <AppRoutes />
+            </Router>
+          </TenantProvider>
+        </AuthProvider>
+      </ToastProvider>
+    </ThemeProvider>
   );
 };
 

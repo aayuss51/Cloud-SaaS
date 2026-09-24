@@ -10,13 +10,17 @@ import {
   Plus,
   ArrowRight,
   ShieldCheck,
+  Lock,
 } from 'lucide-react';
 import { useTenant } from '../../context/TenantContext';
+import { useAuth } from '../../context/AuthContext';
 import { getHousekeeping, updateHousekeepingStatus } from '../../services/mockDb';
 import { HousekeepingRoom, RoomCleaningStatus } from '../../types';
+import { RoleGuard } from '../../components/RoleGuard';
 
 export const Housekeeping: React.FC = () => {
   const { currentProperty } = useTenant();
+  const { can, user } = useAuth();
   const [rooms, setRooms] = useState<HousekeepingRoom[]>([]);
   const [selectedFloor, setSelectedFloor] = useState<string>('ALL');
 
@@ -192,12 +196,18 @@ export const Housekeeping: React.FC = () => {
                           </button>
                         )}
                         {col.status === 'CLEAN' && (
-                          <button
-                            onClick={() => handleStatusShift(rm.roomNumber, 'INSPECTED')}
-                            className="w-full py-1.5 bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/30 rounded-lg font-bold text-center"
+                          <RoleGuard
+                            permission="pms:housekeeping:approve_inspection"
+                            renderDisabled={true}
+                            disabledTooltip="Supervisor / Front Desk / GM approval required"
                           >
-                            Approve / Inspected ✓
-                          </button>
+                            <button
+                              onClick={() => handleStatusShift(rm.roomNumber, 'INSPECTED')}
+                              className="w-full py-1.5 bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/30 rounded-lg font-bold text-center"
+                            >
+                              Approve / Inspected ✓
+                            </button>
+                          </RoleGuard>
                         )}
                         {col.status === 'INSPECTED' && (
                           <div className="w-full text-center text-blue-400 font-semibold py-1">

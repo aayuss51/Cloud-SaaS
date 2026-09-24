@@ -12,6 +12,7 @@ import {
   CreditCard,
   Layers,
   ArrowRight,
+  Grid,
 } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { Logo } from './Logo';
@@ -22,11 +23,13 @@ import { UserRole } from '../types';
 interface SaaSTopBarProps {
   onOpenNewPropertyModal?: () => void;
   onOpenUpgradeModal?: () => void;
+  onOpenMatrixModal?: () => void;
 }
 
 export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
   onOpenNewPropertyModal,
   onOpenUpgradeModal,
+  onOpenMatrixModal,
 }) => {
   const { currentProperty, properties, switchProperty, isAllPropertiesView, setAllPropertiesView } = useTenant();
   const { user, switchUserRole, logout } = useAuth();
@@ -38,6 +41,7 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
 
   const personas: { role: UserRole; title: string; desc: string; badge: string }[] = [
     { role: 'SUPER_ADMIN', title: 'Platform SuperAdmin', desc: 'SaaS Platform Owner (All properties & MRR)', badge: 'Owner' },
+    { role: 'ADMIN', title: 'Enterprise Admin', desc: 'Hotel group VP & organization operations admin', badge: 'Enterprise' },
     { role: 'HOTEL_ADMIN', title: 'General Manager (GM)', desc: 'Full hotel operational & revenue control', badge: 'Executive' },
     { role: 'FRONT_DESK', title: 'Front Desk / Concierge', desc: 'Fast check-in, folio billing, tape chart', badge: 'Operations' },
     { role: 'HOUSEKEEPING', title: 'Housekeeping Lead', desc: 'Room cleaning board, maintenance tickets', badge: 'Staff' },
@@ -223,6 +227,21 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
                     );
                   })}
                 </div>
+
+                {onOpenMatrixModal && (
+                  <div className="border-t border-slate-800 pt-2 mt-1">
+                    <button
+                      onClick={() => {
+                        setIsPersonaDropdownOpen(false);
+                        onOpenMatrixModal();
+                      }}
+                      className="w-full flex items-center justify-center gap-1.5 py-2 px-3 bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 rounded-lg text-xs font-semibold border border-blue-500/30 transition-all"
+                    >
+                      <Grid size={13} />
+                      <span>View Permissions Matrix</span>
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>

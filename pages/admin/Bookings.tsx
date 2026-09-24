@@ -12,15 +12,19 @@ import {
   Download,
   Building2,
   CheckCircle2,
+  Lock,
 } from 'lucide-react';
 import { useTenant } from '../../context/TenantContext';
+import { useAuth } from '../../context/AuthContext';
 import { getBookings, getRooms, updateBookingStatus } from '../../services/mockDb';
 import { Booking, BookingStatus, BookingChannel, RoomType } from '../../types';
 import { FolioModal } from '../../components/FolioModal';
 import { QuickBookingModal } from '../../components/QuickBookingModal';
+import { RoleGuard } from '../../components/RoleGuard';
 
 export const Bookings: React.FC = () => {
   const { currentProperty } = useTenant();
+  const { can } = useAuth();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [rooms, setRooms] = useState<RoomType[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -87,13 +91,19 @@ export const Bookings: React.FC = () => {
           </p>
         </div>
 
-        <button
-          onClick={() => setIsQuickBookOpen(true)}
-          className="flex items-center gap-1.5 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 transition-all"
+        <RoleGuard
+          permission="pms:bookings:create"
+          renderDisabled={true}
+          disabledTooltip="Front Desk & Admin role required to create reservations"
         >
-          <Plus size={15} />
-          <span>New Reservation</span>
-        </button>
+          <button
+            onClick={() => setIsQuickBookOpen(true)}
+            className="flex items-center gap-1.5 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 transition-all"
+          >
+            <Plus size={15} />
+            <span>New Reservation</span>
+          </button>
+        </RoleGuard>
       </div>
 
       {/* Filter & Search Toolbar */}
@@ -243,28 +253,40 @@ export const Bookings: React.FC = () => {
 
                     <td className="p-4 text-right space-x-1.5 whitespace-nowrap">
                       {b.status === 'CONFIRMED' && (
-                        <button
-                          onClick={e => {
-                            e.stopPropagation();
-                            handleQuickStatus(b.id, 'CHECKED_IN');
-                          }}
-                          className="px-2.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold text-[11px] shadow-sm transition-all"
-                          title="Quick Check-In"
+                        <RoleGuard
+                          permission="pms:bookings:check_in_out"
+                          renderDisabled={true}
+                          disabledTooltip="Front Desk & Admin role required"
                         >
-                          Check In
-                        </button>
+                          <button
+                            onClick={e => {
+                              e.stopPropagation();
+                              handleQuickStatus(b.id, 'CHECKED_IN');
+                            }}
+                            className="px-2.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold text-[11px] shadow-sm transition-all"
+                            title="Quick Check-In"
+                          >
+                            Check In
+                          </button>
+                        </RoleGuard>
                       )}
                       {b.status === 'CHECKED_IN' && (
-                        <button
-                          onClick={e => {
-                            e.stopPropagation();
-                            handleQuickStatus(b.id, 'CHECKED_OUT');
-                          }}
-                          className="px-2.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold text-[11px] shadow-sm transition-all"
-                          title="Quick Check-Out"
+                        <RoleGuard
+                          permission="pms:bookings:check_in_out"
+                          renderDisabled={true}
+                          disabledTooltip="Front Desk & Admin role required"
                         >
-                          Check Out
-                        </button>
+                          <button
+                            onClick={e => {
+                              e.stopPropagation();
+                              handleQuickStatus(b.id, 'CHECKED_OUT');
+                            }}
+                            className="px-2.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold text-[11px] shadow-sm transition-all"
+                            title="Quick Check-Out"
+                          >
+                            Check Out
+                          </button>
+                        </RoleGuard>
                       )}
                       <button
                         onClick={e => {

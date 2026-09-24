@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo } from 'react';
 import { User, UserRole } from '../types';
 import { updateUserProfile, getUsers, INITIAL_USERS } from '../services/mockDb';
+import { Permission, hasPermission, hasAnyRole, isStaffRole } from '../services/permissions';
 
 interface AuthContextType {
   user: User | null;
@@ -10,6 +11,15 @@ interface AuthContextType {
   updateProfile: (updates: Partial<User>) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
+  can: (permission: Permission) => boolean;
+  hasRole: (roles: UserRole | UserRole[]) => boolean;
+  isSuperAdmin: boolean;
+  isAdmin: boolean;
+  isHotelAdmin: boolean;
+  isFrontDesk: boolean;
+  isHousekeeping: boolean;
+  isGuest: boolean;
+  isStaff: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -66,6 +76,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const switchUserRole = async (role: UserRole) => {
+    if (role === 'ADMIN') {
+      const adminMatch: User = {
+        id: 'user_admin_enterprise',
+        name: 'Pooja Shrestha',
+        email: 'admin@grandroyalpalace.com',
+        role: 'ADMIN',
+        propertyId: 'prop_grand_royal',
+        department: 'Executive Operations',
+        designation: 'VP of Hotel Operations',
+        avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop',
+      };
+      setUser(adminMatch);
+      localStorage.setItem('hms_user', JSON.stringify(adminMatch));
+      return;
+    }
+
     // Pick the preset user for fast previewing
     const match = INITIAL_USERS.find(u => u.role === role) || {
       id: `usr_${role.toLowerCase()}`,
@@ -103,6 +129,23 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.removeItem('hms_user');
   };
 
+  const can = (permission: Permission) => {
+    return hasPermission(user?.role, permission);
+  };
+
+  const hasRole = (roles: UserRole | UserRole[]) => {
+    const list = Array.isArray(roles) ? roles : [roles];
+    return hasAnyRole(user?.role, list);
+  };
+
+  const isSuperAdmin = user?.role === 'SUPER_ADMIN';
+  const isAdmin = user?.role === 'ADMIN';
+  const isHotelAdmin = user?.role === 'HOTEL_ADMIN';
+  const isFrontDesk = user?.role === 'FRONT_DESK';
+  const isHousekeeping = user?.role === 'HOUSEKEEPING';
+  const isGuest = user?.role === 'GUEST';
+  const isStaff = isStaffRole(user?.role);
+
   const contextValue = useMemo(
     () => ({
       user,
@@ -112,6 +155,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       updateProfile,
       logout,
       isLoading,
+      can,
+      hasRole,
+      isSuperAdmin,
+      isAdmin,
+      isHotelAdmin,
+      isFrontDesk,
+      isHousekeeping,
+      isGuest,
+      isStaff,
     }),
     [user, isLoading]
   );
