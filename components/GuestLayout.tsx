@@ -19,6 +19,7 @@ import {
   BedDouble,
   Heart
 } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 
 export const GuestLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, logout } = useAuth();
@@ -27,7 +28,7 @@ export const GuestLayout: React.FC<{ children: React.ReactNode }> = ({ children 
   const [currency, setCurrency] = useState<'NPR' | 'USD'>('NPR');
 
   return (
-    <div className="flex flex-col min-h-screen bg-stone-50 text-stone-900 font-sans antialiased selection:bg-emerald-600 selection:text-white">
+    <div className="flex flex-col min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 font-sans antialiased selection:bg-emerald-600 selection:text-white transition-colors duration-200">
       {/* Guest Top Notification Ribbon */}
       <div className="bg-stone-900 text-stone-300 py-2 px-4 text-xs font-medium border-b border-stone-800">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
@@ -37,15 +38,20 @@ export const GuestLayout: React.FC<{ children: React.ReactNode }> = ({ children 
             <span>Best Rate Direct Booking Guarantee with Zero Hidden Service Fees</span>
           </div>
 
-          <div className="flex items-center gap-4 text-stone-400 text-xs">
-            <div className="flex items-center gap-1.5 border-r border-stone-800 pr-4">
-              <span className="text-stone-400">Currency:</span>
+          <div className="flex items-center gap-3 text-stone-400 text-xs">
+            <div className="flex items-center gap-1.5 border-r border-stone-800 pr-3">
+              <span className="text-stone-400 hidden xs:inline">Currency:</span>
               <button
                 onClick={() => setCurrency(c => c === 'NPR' ? 'USD' : 'NPR')}
                 className="font-bold text-emerald-400 hover:text-emerald-300 transition-colors uppercase"
               >
                 {currency === 'NPR' ? 'NPR (रू)' : 'USD ($)'}
               </button>
+            </div>
+
+            {/* Quick Theme Switch in Ribbon */}
+            <div className="flex items-center border-r border-stone-800 pr-3">
+              <ThemeToggle variant="icon" className="!p-1 !rounded-lg !bg-stone-800 !border-stone-700 !text-stone-300 hover:!text-white" />
             </div>
 
             {/* Quick Switch to Hotelier / Staff PMS */}
@@ -55,7 +61,8 @@ export const GuestLayout: React.FC<{ children: React.ReactNode }> = ({ children 
               title="Switch to Staff & Hotelier Operating System"
             >
               <Building2 size={12} className="text-emerald-400" />
-              <span>Hotelier PMS Console</span>
+              <span className="hidden sm:inline">Hotelier PMS Console</span>
+              <span className="sm:hidden">PMS</span>
               <ExternalLink size={10} className="text-stone-400" />
             </Link>
           </div>
@@ -63,7 +70,7 @@ export const GuestLayout: React.FC<{ children: React.ReactNode }> = ({ children 
       </div>
 
       {/* Main Guest Navigation Header */}
-      <header className="bg-white/95 backdrop-blur-md border-b border-stone-200 sticky top-0 z-40 shadow-sm">
+      <header className="bg-white/95 dark:bg-stone-900/95 backdrop-blur-md border-b border-stone-200 dark:border-stone-800 sticky top-0 z-40 shadow-sm transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           {/* Guest Brand Logo */}
           <Link to="/" className="flex items-center gap-3.5 group">
@@ -72,31 +79,31 @@ export const GuestLayout: React.FC<{ children: React.ReactNode }> = ({ children 
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xl font-black tracking-tight text-stone-900 font-serif">
+                <span className="text-xl font-black tracking-tight text-stone-900 dark:text-white font-serif">
                   Mero Stays
                 </span>
-                <span className="text-[10px] font-bold tracking-widest text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full uppercase">
+                <span className="text-[10px] font-bold tracking-widest text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/60 px-2 py-0.5 rounded-full uppercase">
                   Resorts & Hotels
                 </span>
               </div>
-              <p className="text-[11px] text-stone-400 tracking-wide font-medium">
+              <p className="text-[11px] text-stone-400 dark:text-stone-500 tracking-wide font-medium">
                 Nepal's Premier Boutique Stays
               </p>
             </div>
           </Link>
 
           {/* Traveler Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-stone-600">
-            <a href="/#destinations" className="hover:text-emerald-700 transition-colors">
+          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-stone-600 dark:text-stone-300">
+            <a href="/#destinations" className="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">
               Destinations in Nepal
             </a>
-            <a href="/#suites" className="hover:text-emerald-700 transition-colors">
+            <a href="/#suites" className="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">
               Suites & Villas
             </a>
-            <a href="/#experiences" className="hover:text-emerald-700 transition-colors">
+            <a href="/#experiences" className="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">
               Experiences & Dining
             </a>
-            <Link to="/my-bookings" className="hover:text-emerald-700 transition-colors flex items-center gap-1.5">
+            <Link to="/my-bookings" className="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors flex items-center gap-1.5">
               <span>My Reservations</span>
               {user && (
                 <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
@@ -106,21 +113,23 @@ export const GuestLayout: React.FC<{ children: React.ReactNode }> = ({ children 
 
           {/* Guest Authentication & Actions */}
           <div className="flex items-center gap-3">
+            <ThemeToggle variant="icon" className="hidden sm:flex" />
+
             {user ? (
               <div className="flex items-center gap-3">
                 <Link
                   to="/my-bookings"
-                  className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-bold transition-all border border-stone-200"
+                  className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 text-xs font-bold transition-all border border-stone-200 dark:border-stone-700"
                 >
-                  <Calendar size={14} className="text-emerald-700" />
+                  <Calendar size={14} className="text-emerald-700 dark:text-emerald-400" />
                   <span>My Trips</span>
                 </Link>
 
                 <Link
                   to="/profile"
-                  className="flex items-center gap-2 text-xs font-bold text-stone-700 hover:text-emerald-700 transition-colors p-1 pr-2.5 rounded-xl hover:bg-stone-100 border border-transparent hover:border-stone-200"
+                  className="flex items-center gap-2 text-xs font-bold text-stone-700 dark:text-stone-200 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors p-1 pr-2.5 rounded-xl hover:bg-stone-100 dark:hover:bg-stone-850 border border-transparent hover:border-stone-200 dark:hover:border-stone-700"
                 >
-                  <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center overflow-hidden border border-emerald-200">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-bold flex items-center justify-center overflow-hidden border border-emerald-200 dark:border-emerald-800">
                     {user.avatarUrl ? (
                       <img src={user.avatarUrl} alt={user.name} className="w-full h-full object-cover" />
                     ) : (
@@ -132,7 +141,7 @@ export const GuestLayout: React.FC<{ children: React.ReactNode }> = ({ children 
 
                 <button
                   onClick={logout}
-                  className="p-2 text-stone-400 hover:text-rose-600 transition-colors rounded-lg hover:bg-rose-50"
+                  className="p-2 text-stone-400 hover:text-rose-600 transition-colors rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40"
                   title="Sign Out"
                 >
                   <LogOut size={16} />
@@ -142,7 +151,7 @@ export const GuestLayout: React.FC<{ children: React.ReactNode }> = ({ children 
               <div className="flex items-center gap-2.5">
                 <Link
                   to="/login"
-                  className="px-4 py-2 rounded-xl text-xs font-bold text-stone-700 hover:text-stone-900 hover:bg-stone-100 transition-all border border-stone-200"
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-stone-700 dark:text-stone-200 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-stone-800 transition-all border border-stone-200 dark:border-stone-700"
                 >
                   Guest Sign In
                 </Link>
@@ -236,7 +245,7 @@ export const GuestLayout: React.FC<{ children: React.ReactNode }> = ({ children 
             <p>
               &copy; 2026 Mero Stays Hospitality Network • Designed & Built for Nepal.
             </p>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
               <span>Privacy Policy</span>
               <span>•</span>
               <span>Terms of Reservation</span>
@@ -244,6 +253,11 @@ export const GuestLayout: React.FC<{ children: React.ReactNode }> = ({ children 
               <Link to="/admin" className="text-stone-400 hover:text-emerald-400 transition-colors font-medium">
                 Admin Console
               </Link>
+              <span>•</span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-[11px] text-stone-400">Theme:</span>
+                <ThemeToggle variant="compact-segmented" showLabels={true} />
+              </div>
             </div>
           </div>
         </div>

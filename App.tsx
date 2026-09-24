@@ -3,6 +3,7 @@ import { HashRouter as Router, Routes, Route, Navigate, Link, useLocation } from
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
 import { TenantProvider, useTenant } from './context/TenantContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { Login } from './pages/public/Login';
 import { Register } from './pages/public/Register';
 import { Home } from './pages/public/Home';
@@ -82,9 +83,10 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode; requiredRole?: UserR
 
 const App: React.FC = () => {
   return (
-    <ToastProvider>
-      <AuthProvider>
-        <TenantProvider>
+    <ThemeProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <TenantProvider>
           <Router>
             <Routes>
               {/* Public & Guest Experience Routes */}
@@ -179,6 +181,7 @@ const App: React.FC = () => {
         </TenantProvider>
       </AuthProvider>
     </ToastProvider>
+  </ThemeProvider>
   );
 };
 

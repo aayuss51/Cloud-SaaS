@@ -13,6 +13,7 @@ import {
   Layers,
   ArrowRight,
 } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 import { useTenant } from '../context/TenantContext';
 import { useAuth } from '../context/AuthContext';
 import { UserRole } from '../types';
@@ -243,6 +244,9 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
             <ExternalLink size={13} className="text-emerald-400" />
           </Link>
 
+          {/* Theme Quick Switcher for Admin Top Bar */}
+          <ThemeToggle variant="icon" className="!p-2" />
+
           {/* User Menu */}
           <div className="relative">
             <button
@@ -266,7 +270,7 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
             </button>
 
             {isUserMenuOpen && (
-              <div className="absolute right-0 mt-2 w-56 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 z-50 animate-fade-in-up">
+              <div className="absolute right-0 mt-2 w-64 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 z-50 animate-fade-in-up">
                 <div className="px-3 py-2 border-b border-slate-800">
                   <p className="text-xs font-bold text-white truncate">{user?.name}</p>
                   <p className="text-[11px] text-slate-400 truncate">{user?.email}</p>
@@ -274,7 +278,22 @@ export const SaaSTopBar: React.FC<SaaSTopBarProps> = ({
                     {user?.role}
                   </span>
                 </div>
+
+                {/* Theme Selector inside User Menu */}
+                <div className="px-3 py-2.5 border-b border-slate-800 flex items-center justify-between">
+                  <span className="text-xs text-slate-300 font-medium">Theme</span>
+                  <ThemeToggle variant="compact-segmented" showLabels={true} />
+                </div>
+
                 <div className="py-1 text-xs text-slate-300">
+                  <Link
+                    to="/admin/settings"
+                    onClick={() => setIsUserMenuOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2 hover:bg-slate-800 rounded-lg"
+                  >
+                    <Sparkles size={14} className="text-emerald-400" />
+                    <span>Theme & Display Settings</span>
+                  </Link>
                   <Link
                     to="/admin/billing"
                     onClick={() => setIsUserMenuOpen(false)}
